@@ -1,0 +1,941 @@
+
+   <style type="text/css">
+       .page-content-wrapper .page-content {
+
+    margin-left: 235px;
+    margin-top: 0;
+    min-height: 600px;
+    padding: 0px 0 0 20px;
+
+}
+
+.map{
+    width: 100%;
+    height: 100%;
+}
+
+
+#map_ruta{
+    width: 100%;
+    height: 600px;
+
+
+}
+
+.dircontainer{
+    border: 1px solid blue;
+    height: 60px;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+.direccionfd{
+    float: right;
+}
+
+.timeline .timeline-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f5f6fa;
+    -webkit-border-radius: 50%!important;
+    -moz-border-radius: 50%!important;
+    border-radius: 50%!important;
+    padding-top: 20px;
+    padding-left: 0px !important;
+    text-align: center;
+    color: orange
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 4px;
+    background: #f5f6fa;
+    top: 0;
+    bottom: 0;
+    margin-left: 22px;
+}
+
+.timeline .timeline-body-arrow {
+    position: absolute;
+    /* top: 30px; */
+    left: -14px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 14px 14px 14px 0;
+    border-color: transparent #f5f6fa transparent transparent;
+}
+
+.timeline .timeline-body {
+    position: relative;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
+    background-color: #f5f6fa;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.timeline .timeline-body-arrow {
+    position: absolute;
+    top: 10px !important;
+    left: -14px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 14px 14px 14px 0;
+    border-color: transparent #f5f6fa transparent transparent;
+}
+
+   </style>
+
+
+   <div class="row mapa-contenedor">
+       
+    <div class="col-md-5">             
+<form method="POST" id="solicitudf">
+<input type="hidden" name="tarifa" class="tarifaf">
+                <div class="row">
+                    
+                    <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-microphone font-green"></i>
+                                        <span class="caption-subject bold font-green uppercase"> Solicitar mensajero</span>
+                                        <span class="caption-helper">Ingresa la información a continuacion para solicitar tu servicio.</span>
+                                    </div>
+                                    <div class="actions">
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="timeline">
+                                        <!-- TIMELINE ITEM -->
+                                        <div class="timeline-item t-1">
+                                            <div class="timeline-badge">
+                                                <div class="timeline-icon">
+                                                    <i class="fa fa-map-marker"></i>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        <span class="timeline-body-alerttitle font-green-haze">Donde recojemos tu paquete?</span>
+                                                       
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                      
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                 
+                                               <!--  <label>Ciudad:</label>    
+                                                <select  class="form-control tr f" data-item="0" name="trayectos[]">
+                                               
+                                                 </select>    -->    
+                                                        
+                                                 
+
+                                                <br>
+                                                 <label>Dirección:</label>    
+ <input type="hidden" class="form-control drv fdir-0" name="direccion[]" required> <div class="dircontainer" id="dcont-0"></div> <input type="hidden" name="latitud[]" id="lat-0"><input type="hidden" name="longitud[]" id="lnt-0">
+  <button class="btn btn-sm btn-success direccionfd trayecbt-0" data-item="0" type="button">Buscar dirección</button>
+
+                                                 <br>
+                                                 <label>Tipo:</label>    
+                                                <select type="text" class="form-control" name="tipo"> 
+                                                        <option value="Documentos">Documentos</option>
+                                                        <option value="Paquete">Paquete</option>
+                                                </select>    
+
+                                                <br>
+                                                 <label>Persona contacto:</label>    
+                                                <input type="text" class="form-control" name="contacto[]" > 
+
+                                                <br>
+                                                <div class="form-group">
+                                                <label>Diligencia adicional:</label>
+                                                <div class="mt-radio-inline">
+                                                    <label class="mt-radio">
+                                                        <input type="checkbox" name="diligencia"  value="Si" > Si
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="mt-radio">
+                                                        <input type="checkbox" name="diligencia"  value="No" checked=""> 
+                                                        No
+                                                        <span></span>
+                                                    </label>
+                                                    
+                                                </div>
+                                            </div>
+
+
+                                                 <br>
+                                                 <label>Observaciones adicionales:</label>    
+                                                <textarea class="form-control" cols="50" rows="5" name="observaciones"> </textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END TIMELINE ITEM -->
+                                        <!-- TIMELINE ITEM -->
+                                        <div class="timeline-item t-2">
+                                            <div class="timeline-badge">
+                                                <div class="timeline-icon">
+                                                        <i class="fa fa-map-marker"></i>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        <span class="timeline-body-alerttitle font-green-haze">Luego ir a ...</span>
+                                                       
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                 
+                                              <!--   <label>Ciudad:</label>    
+                                                <select  class="form-control tr" data-item="1" name="trayectos[]">
+                                               
+                                                         </select>
+ -->
+                                                                            
+
+                                                <br>
+                                                 <label>Dirección:</label>    
+                                                <input type="hidden" class="form-control input_busqueda drv fdir-1" name="direccion[]" required> <div class="dircontainer" id="dcont-1"></div> <input type="hidden" name="latitud[]" id="lat-1"><input type="hidden" name="longitud[]" id="lnt-1">
+                                                <button data-item="1" class="btn btn-sm btn-success direccionfd trayecbt-1" type="button">Buscar dirección</button>
+
+
+                                                <br>
+                                                 <label>Persona contacto:</label>    
+                                                <input type="text" class="form-control" name="contacto[]"> 
+
+                                                 <br>
+                                              
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END TIMELINE ITEM -->
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+
+                <div class="row end">
+           
+
+                </div>
+                <input type="hidden" name="contratante" id="cfo">
+</form>
+
+           </div>
+
+ <div class="col-md-7 ">
+                
+<div id="map_ruta"></div>
+
+<div id="modal_mapa" class="modal fade in bs-modal-sm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc ; color: white">
+                   
+                    <h4 class="modal-title">Buscar dirección</h4>
+                </div>
+                <div class="modal-body">
+                   <iframe src="" id="framemap" style="width: 100%; height: 450px; overflow: hidden;" frameborder="0"></iframe>
+                   <div class="direccion_text" style="padding: 5px">
+                       <h4>Valida tu dirección destino</h4>
+                       <textarea id="direccion_text" class="form-control input-lg" style="width: 100% height100%"></textarea>
+
+                       <input type="hidden" id="latf">
+                       <input type="text" id="longf">
+
+                   </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="btn btn-success addr" type="button" disabled><span class="glyphicon glyphicon-plus"></span> Agregar dirección</button>
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+ <div class="btn-toolbar">
+                                             
+                                                                <div class="btn-group btn-group-solid pull-right">
+                                             
+                                                                    <button type="button" class="btn lime addt"><i class="fa fa-plus"></i> Agregar trayecto</button>
+                                                                   
+                                                                    <button type="button" class="btn red sndfrm"><i class="fa fa-plus"></i> Solicitar servicio</button>
+                                                                    
+                                                                    <button type="button" class="btn green clbt"><i class="fa fa-plus"></i> Cancelar</button>
+                                                                   
+
+                                                                </div>
+                                                               
+                                                            </div>
+
+            </div>
+
+
+           </div>
+        <!-- END FOOTER -->
+        <!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+    
+       
+
+
+
+
+
+    </body>
+
+</html>
+<link rel="stylesheet" href="assets/global/css/leaflet-routing-machine.css" > 
+<script src="assets/js/leaflet-routing-machine.js"></script> 
+
+<style type="text/css">
+    
+.form-error{
+    border: 1px solid red;
+}
+
+.direccion_text{
+    background-color: white;
+    position: absolute;
+    z-index: 999;
+    top: 270px;
+    left: 10px;
+    width: 97%;
+    opacity: 0.9;
+    display: none;
+    -webkit-box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+    -moz-box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+    box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+
+border-radius: 5px 5px 5px 5px;
+-moz-border-radius: 5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+border: 0px solid #000000; 
+
+}
+
+#mapSearchContainer{
+  position:fixed;
+  top:20px;
+  right: 40px;
+  height:30px;
+  width:180px;
+  z-index:110;
+  font-size:10pt;
+  color:#5d5d5d;
+  border:solid 1px #bbb;
+  background-color:#f8f8f8;
+}
+
+
+@media (min-width: 768px){
+#modal_mapa  .modal-dialog {
+     width: 100% !important; 
+     margin: 0px auto !important; 
+ }
+
+}
+
+#modal_mapa  .modal-dialog {
+    position: relative; 
+    width: auto; 
+    margin: 0px !important; 
+    overflow: hidden;
+    height: 100% !important;
+}
+
+#modal_mapa{
+    padding: 0px !important;
+}
+
+.time-line-body{
+
+     -webkit-box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+    -moz-box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+    box-shadow: 7px 6px 4px -1px rgba(232,232,232,0.68);
+}
+
+
+</style>
+
+<script type="text/javascript">
+
+
+var map2;
+var latitud ;
+var longitud;
+var results;
+var trs = 0;
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+latitud = position.coords.latitude; 
+longitud = position.coords.longitude; 
+
+
+
+  setTimeout(function(){  
+
+    console.log("cargando mapa ruta");
+
+        // Initialize the map and assign it to a variable for later use
+    map2 = L.map('map_ruta', {
+    // Set latitude and longitude of the map center (required)
+    center: [latitud, longitud],
+    // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
+    zoom: 15
+});
+
+L.control.scale().addTo(map2);
+
+// Create a Tile Layer and add it to the map
+//var tiles = new L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map2);
+
+
+
+  results = new L.LayerGroup().addTo(map2);
+L.Routing.control().addTo(map2);
+
+
+},2000)
+
+
+
+
+console.log('latitud',latitud);
+console.log('longitud',longitud);
+}
+
+
+var num = 1;    
+var timeline_items = [{id: 0, tipo : 'tr', destino:''},{id: 1, tipo : 'tr',destino:''}];
+var ciudades_html = '';
+var trayectos ; 
+var total_servicio = 0;
+var validate_errors = timeline_items.length;
+
+
+//esto sucede despues de pintar cada formulario
+$('.addr').click(function(){
+
+
+console.log("SET a ",trs); 
+var conttextdr = '#dcont-'+trs;
+var dirfield = '.fdir-'+trs;
+var latfield = '#lat-'+trs;
+var lngfield = '#lnt-'+trs;                       
+
+
+console.log("cargando coodenadas: ",$('#latf').val()+' - '+$('#longf').val())
+
+                     //direccion   
+                    $(conttextdr).html($('#direccion_text').val());   
+                    $(dirfield).val($('#direccion_text').val());     
+
+                  
+                    
+                    $(latfield).val($('#latf').val());    
+                    $(lngfield).val($('#longf').val());
+                           
+                    
+                    $('.direccion_text').hide();  
+
+
+  $('#modal_mapa').modal("hide");
+
+
+
+var resultObject = search(trs, timeline_items);
+
+
+timeline_items[resultObject.id].lat = $('#latf').val();
+timeline_items[resultObject.id].lng = $('#longf').val();
+timeline_items[resultObject.id].direccion = $('#direccion_text').val();
+
+var waypoints_data = [];
+
+           results.clearLayers();
+    timeline_items.forEach(function(itemtime){
+
+
+
+         results.addLayer( L.marker([itemtime.lat,itemtime.lng]).addTo(map2).bindPopup(itemtime.direccion).openPopup());  
+
+        waypoints_data.push(L.latLng(itemtime.lat,itemtime.lng));
+
+    })
+
+L.Routing.control.setWaypoints(waypoints_data);
+
+
+
+L.Routing.control.route();
+
+        
+      $('#direccion_text').val("");
+          $('#latf').val("");
+         $('#longf').val("");
+         $('.addr').attr("disabled",true);
+
+
+})
+
+function set_address(text,lat,long){
+
+$('#direccion_text').val(text);
+$('#latf').val(lat);
+$('#longf').val(long);
+
+
+if(validate_errors < timeline_items.length){
+validate_errors ++;
+}
+
+ $(this).parent().removeClass("form-error");
+            $('.msge').remove()
+
+$('.direccion_text').fadeIn();
+
+$('.addr').attr("disabled",false);
+
+}
+
+
+function search(nameKey, myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].id === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+
+
+function render(){
+
+
+$('.tr').change(function(){
+
+    var num_index = trayectos.length;
+
+
+var resultObject = search($(this).data('item'), timeline_items);
+
+
+timeline_items[resultObject.id].destino = $(this).val();
+
+
+console.log("listado");
+console.log(timeline_items);
+
+
+get_tarifa(timeline_items);
+
+
+})
+
+
+var rs = [];
+ 
+
+function get_tarifa(trayectos){
+
+var urlstr = "";
+var sep= "";
+
+console.log("tarifasss: ",trayectos);
+
+
+$.each(trayectos, function(index,value){
+
+console.log("value:", value.destino);
+
+
+if(value.destino != ""){
+urlstr += sep+value.destino;
+sep = "-";
+}
+
+
+
+})
+
+
+
+
+$.ajax({
+    type: "POST", 
+    url: "https://superenvio.co/api/obtener_tarifap",
+    dataType:'json',    
+    data: "data="+urlstr, 
+    success: function (data) {
+        console.log(data)
+
+total_servicio += data.total;
+
+        //$('.ttal').html(total_servicio);
+        //$('.tarifaf').val(total_servicio)
+
+    }
+
+});
+
+}
+
+
+
+
+
+
+}
+
+
+$(document).ready(function(){
+
+
+timer.stop();
+
+
+getLocation();
+
+
+
+
+
+
+var cpfwe = localStorage.getItem('user_id');
+
+
+
+setTimeout(function(){
+    $('#cfo').val(cpfwe);
+
+},1000);
+
+
+    $('.clbt').click(function(){
+
+            location.href = 'principal.html';
+
+    })
+
+
+    $('.addt').click(function(){
+
+if($('.timeline > .tf').length == 0){
+        num++ ;
+
+
+        $('.timeline').append('<!-- TIMELINE ITEM --><div class="timeline-item t-'+num+'"><div class="timeline-badge"><div class="timeline-icon"><i class="fa fa-map-marker"></i></div></div><div class="timeline-body"><div class="timeline-body-arrow"></div><div class="timeline-body-head"><div class="timeline-body-head-caption"><span class="timeline-body-alert-title font-green-haze">Luego llevarlo a ...</span></div><div class="timeline-body-head-actions"><div class="btn-group dropup"><button class="btn btn-circle red btn-sm dropdown-toggle delt" data-id="'+num+'" type="button" > Eliminar <i class="fa fa-trash"></i></button></div></div></div><div class="timeline-body-content"<label>Dirección:</label><input id="ddir-'+num+'" type="hidden" required class="form-control drv fdir-'+num+'" name="direccion[]"><div class="dircontainer" id="dcont-'+num+'"></div> <input type="hidden" name="latitud[]" id="lat-'+num+'"><input type="hidden" name="longitud[]" id="lnt-'+num+'"><button data-item="'+num+'" class="btn btn-sm btn-success direccionfd trayecbt-"'+num+'" type="button">Buscar dirección</button> <br><label>Persona contacto:</label><input type="text" class="form-control" name="contacto[]"><br> </div></div></div><!-- END TIMELINE ITEM -->').fadeIn()
+
+         $('html, body').animate({ 
+        scrollTop: $(".end").offset().top 
+        }, 2000);
+                    
+             $(".direccionfd").click(function(){
+
+                //$(this).closest('.elemento').find('texto').text()
+
+
+               trs = $(this).data("item");
+
+               console.log("item seleccionado html dinamico ",trs);
+                    $('#modal_mapa').modal("show");
+
+                     
+                    $('#framemap').attr('src','map_picker.html');
+                   
+
+             });       
+
+         $('.delt').click(function(){
+            
+
+             console.log(trayectos) 
+
+
+            trayectos.splice($(this).data('id')-1, 1);
+
+             console.log(trayectos) 
+
+
+            $(this).closest('.timeline-item').fadeOut('slow').remove();
+
+           
+            render()
+ 
+         })
+
+
+//agrego trayecto
+
+timeline_items.push({id: num, tipo : 'tr',destino:''});  
+
+render()
+ 
+}else{
+
+    alert('No se puede ingresar este trayecto. Ya se cerro el recorrido.')
+} 
+    })
+
+
+ 
+    $('.sti').click(function(){
+
+
+if($('.timeline > .tf').length == 0){
+
+if(timeline_items[timeline_items.length- 1].tipo){
+ 
+num++; 
+
+        $('.timeline').append('<!-- TIMELINE ITEM --><div class="timeline-item t-'+num+' tf"><div class="timeline-badge"><div class="timeline-icon"><i class="fa fa-map-marker"></i></div></div><div class="timeline-body"><div class="timeline-body-arrow"></div><div class="timeline-body-head"><div class="timeline-body-head-caption"><span class="timeline-body-alerttitle font-green-haze">Luego regresar.</span></div><div class="timeline-body-head-actions"><div class="btn-group dropup"><button class="btn btn-circle red btn-sm dropdown-toggle delt" type="button"> Eliminar <i class="fa fa-trash"></i></button></div></div></div><div class="timeline-body-content"></div></div></div><!-- END TIMELINE ITEM -->').fadeIn()
+
+          $('html, body').animate({
+        scrollTop: $(".end").offset().top 
+        }, 2000);
+
+
+          $('.delt').click(function(){
+           
+            $(this).closest('.timeline-item').fadeOut('slow').remove() ;
+           
+           render()
+ 
+         })
+
+
+timeline_items.push({id: num, tipo : 'rt',destino:''});
+
+}else{
+    alert('No existe');
+}
+
+}else{
+    alert('Ya se programo el trayecto hacia el inicio')
+}
+
+    })
+
+})
+
+</script>
+
+<script>
+
+var str_combos = '<option value="0">Seleccione una ciudad ...</option>';
+var trayectos = [];
+
+var map_load = false;
+
+
+$(document).ready(function(){
+
+
+$('.calc').click(function(){
+
+console.log(trayectos);
+
+
+})
+
+
+         $(".direccionfd").click(function(){
+
+                  trs = $(this).data("item");
+
+               console.log("item seleccionado ",trs);
+                    $('#modal_mapa').modal("show");
+
+                                              
+
+                    $('#framemap').attr('src','map_picker.html');
+         });       
+
+
+// $.ajax({
+//     type: "GET",
+//     url: "https://superenvio.co/api/ciudades",
+//     dataType: "json",
+//     success: function (data) {
+//         console.log(data)
+
+//         $.each(data,function(key,value){
+
+//             str_combos += '<option value="'+value.nombre+'">'+value.nombre+'</option>';    
+            
+//         })
+
+//         $('.tr').html(str_combos)
+
+//     }
+ 
+// });
+
+
+render()
+
+       $('html, body').animate({
+        scrollTop: $("body").offset().top 
+        }, 2000);
+
+
+var sendform = 0;
+
+
+
+$('.sndfrm').click(function(){
+$('#solicitudf').submit();
+
+})
+
+$('#solicitudf').submit(function(e){
+
+if(sendform == 0){
+
+var select_error = 0;
+
+
+$('.drv').each(function() {
+
+console.log("validando: ",$(this).val());
+
+        if($(this).val() == ''){
+
+        
+                 validate_errors --;
+
+        $(this).parent().addClass("form-error");  
+
+
+        $( "<p class='msge' style='color:red'>Error, debe seleccionar una dirección.</p>" ).insertAfter( $(this).parent())          
+
+        alert("Para enviar su solicitud debe llenar los campos obligatorios")
+
+
+
+        }else{
+
+            
+            if(validate_errors < timeline_items.length){
+            validate_errors ++;
+            }
+
+
+            $(this).parent().removeClass("form-error");
+            $('.msge').remove()
+
+        }
+
+
+})    
+
+
+ // $('.tr option:selected').each(function() {
+   
+
+
+
+ //    });
+
+console.log("errores de validacion ",validate_errors);
+
+
+ if(validate_errors == timeline_items.length){
+
+   bootbox.prompt("Que presupuesto dispones para el pago de este servicio?", function(result) {
+                    
+                    $(".bootbox-input-text").attr("type","number");
+
+                    if (result === null) {
+                        alert("Prompt dismissed");
+                    } else {
+ 
+        $('.ttal').html(result);
+        $('.tarifaf').val(result)
+                   
+
+// $.ajax({
+//     type: "POST",
+//     url: "https://superenvio.co/api/solicitudes",
+//     dataType: "json",
+//     data: $('#solicitudf').serialize(),
+//     success: function (data) {
+//         console.log(data)
+//         sendform = 1;
+//         localStorage.setItem('soladd',true); 
+//         location.href = 'principal.html';
+
+//     }
+
+// });
+console.log("enviando solicitud");
+socket.emit("nueva_solicitud", $('#solicitudf').serializeArray());
+
+         localStorage.setItem('soladd',true); 
+         location.href = 'principal.html'; 
+
+
+
+}
+                });
+ 
+
+ }
+
+}
+
+e.preventDefault() 
+
+})
+
+})
+
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138784596-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-138784596-1');
+</script>

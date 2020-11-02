@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+</head>
+<body ng-app="AgilEnvio" ng-controller="solController">
+
+
+<style type="text/css">
+	
+#map_pick{
+
+	width: 100%;
+	height:450px;
+	background-color: #CCC
+}
+
+.popover-content {
+	width: 550px;
+	color:blue;
+}
+
+body{
+	margin: 0px 0px 0px 0px;
+}
+</style>
+
+<div id="map_pick"></div>
+
+ <script src="assets/js/angular.min.js"></script> 
+
+<link rel="stylesheet" href="assets/global/css/leaflet.css" >
+<link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="assets/global/css/esri-leaflet-geocoder.css" > 
+
+
+<script src="assets/js/leaflet.js" ></script>
+
+<script src="assets/js/esri-leaflet.js" ></script>
+<script src="assets/js/esri-leaflet-geocoder.js" ></script>
+
+<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	
+var latitud, longitud;
+
+$(document).ready(function(){
+
+   var app = angular.module('AgilEnvio', []); 
+   var scope;
+
+app.controller('solController', ['$scope', '$http', function ($scope, $http) {
+
+$scope.resultb = [];
+
+$scope.busqueda = function(text){
+
+
+   L.esri.Geocoding.geocode().text(text).run(function(err, results, response){
+
+
+  console.log("Geocoding ",results);
+
+  $scope.resultb = results;
+
+});
+
+
+	
+
+}
+
+
+
+}])
+
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(showPosition);
+
+}
+
+function showPosition(position) {
+latitud = position.coords.latitude; 
+longitud = position.coords.longitude; 
+
+console.log('cordpick',[latitud, longitud]);
+
+
+setTimeout(function(){
+
+console.log('load mapick');
+ 
+    map = L.map('map_pick', {
+    // Set latitude and longitude of the map center (required)
+    center: [latitud, longitud],
+    // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
+    zoom: 18
+});
+
+L.control.scale().addTo(map);
+
+// Create a Tile Layer and add it to the map
+//var tiles = new L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.pixelweb.com.co">Pixelweb</a> desarrollador'
+  }).addTo(map);
+
+
+  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+
+$(".geocoder-control-input").attr('data-toggle', "popover");
+
+$(".geocoder-control-input").attr('data-content', "<< click aqui para buscar destino");
+
+ $('.geocoder-control-input').popover('show'); 
+setTimeout(function(){
+  $('.geocoder-control-input').popover("destroy");
+},6000)
+
+
+  var results = new L.LayerGroup().addTo(map);
+
+  searchControl.on('results', function(data){
+   
+   console.log(data);
+
+    results.clearLayers();
+    for (var i = data.results.length - 1; i >= 0; i--) {
+           results.addLayer(L.marker(data.results[i].latlng));
+    	console.log('lt ',data.results[i].latlng);
+    	 window.parent.set_address(data.results[i].text,data.results[i].latlng.lat,data.results[i].latlng.lng);
+
+    }
+
+ 
+
+
+
+  });
+
+
+   var geocodeService = new L.esri.Services.Geocoding();
+
+  map.on('click', function(e){
+  	 results.clearLayers();
+    geocodeService.reverse(e.latlng, {}, function(error, result){
+      
+    results.addLayer( L.marker(result.latlng).addTo(map).bindPopup(result.address).openPopup());	
+     console.log("lt ",result.latlng);
+      window.parent.set_address(result.address,result.latlng.lat,result.latlng.lng);
+    });
+  });
+
+
+},10000);
+
+}
+
+})
+
+</script>
+
+
+</body>
+</html>

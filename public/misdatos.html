@@ -1,0 +1,724 @@
+<div class="page-head" style="background-color: white">
+                                <div class="container">
+                                    <!-- BEGIN PAGE TITLE -->
+                                    <div class="page-title">
+                                        <h1>Editar | Mis datos
+                                        </h1>
+                                    </div>
+                                    <!-- END PAGE TITLE -->
+                                    <!-- BEGIN PAGE TOOLBAR -->
+                                   
+                                    <!-- END PAGE TOOLBAR -->
+                                </div>
+                            </div>
+<div class="row" style="margin-top: 10px">
+	
+	<div class="col-md-12">
+		
+		<div class="row">
+			<div class="col-md-4">
+				<div class="portlet light profile-sidebar-portlet ">
+                                                        <!-- SIDEBAR USERPIC -->
+                                                        <div class="profile-userpic" align="center"> 
+                                                            <img src="" class="img-responsive " alt="" id="avatar"> </div>
+                                                        <!-- END SIDEBAR USERPIC -->
+                                                        <!-- SIDEBAR USER TITLE 
+                                                        <div class="profile-usertitle">
+                                                            <div class="profile-usertitle-name">  </div>
+                                                            <div class="profile-usertitle-job"> Actualiza tu foto </div>
+                                                        </div>-->
+                                                        <!-- END SIDEBAR USER TITLE -->
+                                                        <!-- SIDEBAR BUTTONS -->
+                                                        <div class="profile-userbuttons" align="center" style="margin-top: 10px">
+                                                            <button type="button" class="btn btn-circle green btn-sm" data-toggle="modal" data-target="#profileimage"><i class="fa fa-camera"></i>  Actualizar foto</button>
+                                                           
+
+                                                        </div>
+                                                        <!-- END SIDEBAR BUTTONS -->
+                                                        <!-- SIDEBAR MENU 
+                                                        <div class="profile-usermenu">
+                                                            <ul class="nav">
+                                                                <li>
+                                                                    <a href="page_user_profile_1.html">
+                                                                        <i class="icon-home"></i> Overview </a>
+                                                                </li>
+                                                                <li class="active">
+                                                                    <a href="page_user_profile_1_account.html">
+                                                                        <i class="icon-settings"></i> Account Settings </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="page_user_profile_1_help.html">
+                                                                        <i class="icon-info"></i> Help </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>-->
+                                                        <!-- END MENU -->
+                                                    </div>
+			</div>
+			<div class="col-md-8">
+				<div class="portlet light ">
+                                                                <div class="portlet-title tabbable-line">
+                                                                    <div class="caption caption-md">
+                                                                        <i class="icon-globe theme-font hide"></i>
+                                                                        <span class="caption-subject font-blue-madison bold uppercase">Datos de tu cuenta</span>
+                                                                    </div>
+                                                                    <ul class="nav nav-tabs">
+                                                                        <li class="active">
+                                                                            <a href="#tab_1_1" data-toggle="tab" aria-expanded="true">Información personal</a>
+                                                                        </li>
+                                                                        
+                                                                        <li class="">
+                                                                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="false">Cambiar contraseña</a>
+                                                                        </li>
+                                                                        <!-- <li class="">
+                                                                            <a href="#tab_1_4" data-toggle="tab" aria-expanded="false">Notificaciones</a>
+                                                                        </li> -->
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="portlet-body">
+                                                                    <div class="tab-content">
+                                                                        <!-- PERSONAL INFO TAB -->
+                                                                        <div class="tab-pane active" id="tab_1_1">
+                                                                            <form role="form" action="#">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Tu nombre o del negocio</label>
+                                                                                    <input type="text" placeholder="John" class="form-control" id="nombres"> </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Tu documento de identidad o NIT</label>
+                                                                                    <input type="text" placeholder="Doe" class="form-control" id="cedula">
+                                                                                    <span class="validate cedulaerror" style="display: none">Este documento ya existe, intenta con otro. <br><br></span>
+                                                                                     </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Celular</label>
+                                                                                    <input type="number"  class="form-control" id="telefono"> </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Email</label>
+                                                                                    <input type="text" id="email" class="form-control" disabled> </div>
+                                                                                                                                                        
+                                                                                <div class="margiv-top-10">
+                                                                                    <a href="javascript:;" class="btn green" id="g_info"> Guardar información </a>
+                                                                       <div class="loading_g1" style="display: none; float: right;"><img src="images/loading.gif"></div>             
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <!-- END PERSONAL INFO TAB -->
+                                                                        <!-- CHANGE PASSWORD TAB -->
+                                                                        <div class="tab-pane" id="tab_1_3">
+                                                                            <form action="#">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Tu contraseña actual</label>
+                                                                                    <input type="password" class="form-control" id="clave_actual"> </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Nueva contraseña</label>
+                                                                                    <input type="password" class="form-control" id="nueva_clave"> </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Confirma tu nueva contraseña</label>
+                                                                                    <input type="password" class="form-control" id="confirmar_clave"> </div>
+                                                                                <div class="margin-top-10">
+                                                                                    <a href="javascript:;" class="btn green" id="g_clave"> Cambiar clave </a>
+                                                                                      <div class="loading_g2" style="display: none; float: right;"><img src="images/loading.gif"></div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <!-- END CHANGE PASSWORD TAB -->
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+ <!-- Modal foto perfil-->
+   <div class="modal fade" id="profileimage" tabindex="-2" role="dialog" style="margin-top: 55px">
+        <div class="modal-dialog" style="width: 300px;">
+    <div class="modal-content">
+     
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+             <h5 class="modal-title" id="myModalLabel">Seleccionar tu foto del perfil</h5>
+          </div>
+          <div class="modal-body" style=" padding: 0px 0px 0px 0px; padding-bottom: 2px;">
+        
+<div id="photo-preview"></div>
+<div id="upload-demo"></div>
+
+       <div align="center" style="padding: 10px">                               
+<h4 id="nop">Escoje tu foto de perfil</h4>
+
+<form id="file-form" name="picform" action="#">
+<input type="file" id="picture" name="pfile" value="Escoje tu foto" accept="image/*" style="display: none;" />
+
+<div class="loading" style="display: none"><img src="images/loading.gif"></div>
+
+</form>
+      
+          <script type="text/javascript">
+
+    var form = document.getElementById('file-form');
+    var fileSelect = document.getElementById('picture');
+    var uploadCrop = false;   
+
+    $(document).ready(function(){
+      
+      $("#avatar").attr('src','uploads/'+scope.usuario.avatar);
+      $('#nombres').val(scope.usuario.nombres);
+       $('#cedula').val(scope.usuario.cedula);
+        $('#telefono').val(scope.usuario.telefono);
+         $('#email').val(scope.usuario.email);
+  
+
+var cedula_valid;
+
+
+  $("#cedula").keyup(function(){
+
+
+$.ajax({
+    type: "POST",
+    url: "https://superenvio.co/auth/checkcedula",
+    dataType: "json",
+    data: {cedula:$(this).val()},
+    success: function (data) {
+        console.log(data)
+
+        if(!data.isIdUnique){
+            cedula_valid = false;
+             $("#cedula").css('border-color','red');
+            $(".cedulaerror").show();
+        }else{
+            cedula_valid = true;
+             $("#cedula").css('border-color','#2953cc');
+            $(".cedulaerror").hide();
+        }
+
+    }
+
+});
+
+
+})    
+
+
+$('#g_clave').click(function(){
+
+
+
+
+if($('#clave_actual').val() == scope.usuario.password){
+
+if($('#nueva_clave').val() == $('#confirmar_clave').val() && $('#nueva_clave').val() != ''){
+
+
+$('#g_clave').attr('disabled',true);
+$('#g_clave').html('Actualizando contraseña...');
+$('.loading_g2').show()
+
+
+$.ajax({
+      url: "api/cambiar_clave/",
+      type: "POST",
+      data: {password:$('#nueva_clave').val(),user:localStorage.getItem('user_id')},
+      success: function (data) {
+        
+      	scope.usuario.password = $('#nueva_clave').val();
+
+
+$('#g_clave').html('Actualizada correctamente!');
+
+
+      $('.loading_g2').hide()
+
+setTimeout(function(){
+
+$('#g_clave').html('Actualizar contraseña');
+$('#g_clave').attr('disabled',false);
+
+},2000)
+
+      
+      }
+    });
+
+
+
+
+}else{
+setTimeout(function(){
+      $('.loading_g2').hide()
+
+$('#g_clave').html('Actualizar contraseña');
+$('#g_clave').attr('disabled',false);
+
+},2000)
+
+alert("La confirmacion de la contraseñade debe ser igual a la de la nueva contraseña");
+}
+
+
+
+
+}else{
+alert('La contraseña actual no es correcta!');
+setTimeout(function(){
+      $('.loading_g2').hide()
+
+$('#g_clave').html('Actualizar contraseña');
+$('#g_clave').attr('disabled',false);
+
+},2000)
+
+
+}
+ 
+
+
+})
+
+
+$('#g_info').click(function(){
+$('#g_info').attr('disabled',true);
+
+$('#g_info').html('Guardando información...');
+
+$('.loading_g1').show()
+
+if($('#nombres').val() != '' && $('#cedula').val() != '' && $('#telefono').val() != ''){
+
+$.ajax({
+      url: "api/guardar_usuario/",
+      type: "POST",
+      data: {nombres:$('#nombres').val(),cedula:$('#cedula').val(),telefono:$('#telefono').val(),user:localStorage.getItem('user_id')},
+      success: function (data) {
+        
+      	scope.usuario.nombres = $('#nombres').val();
+		scope.usuario.telefono = $('#telefono').val();
+ 		scope.usuario.cedula = $('#cedula').val(); 
+
+
+
+$('#g_info').html('Guardado correctamente!');
+
+
+      $('.loading_g1').hide()
+
+setTimeout(function(){
+
+$('#g_info').html('Guardar información');
+$('#g_info').attr('disabled',false);
+
+},2000)
+
+      
+      }
+    });
+
+}else{
+
+alert("Error debe llenar los campos requeridos");
+
+$('#g_info').html('Guardar información');
+$('#g_info').attr('disabled',false);
+}
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     $('#picture').change(function () { 
+ 
+ $('.loading').show()
+
+if($('.croppie-container').length == 0){
+console.log("cargando libreria");
+
+$('#nop').hide()
+
+uploadCrop = $('#upload-demo').croppie({
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+}
+
+
+ $('#photo-preview').hide();
+  $('#upload-demo').show();
+
+   $('.apply').attr('disabled',true);
+   $('.apply').removeClass('btn-success').addClass('btn-default');
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+
+      uploadCrop.croppie('bind', {
+        url: e.target.result
+      }).then(function(){
+
+        $('.loading').hide()
+        $('.apply').removeAttr('disabled');
+
+ 
+ $('.apply').removeAttr('disabled').addClass('btn-success'); 
+
+        console.log('jQuery bind complete');
+      });
+      
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+ 
+      
+    $('#pictureold').change(function(){
+
+
+
+    $("#file-form").submit()
+    })
+
+    $("#file-form").submit(function() {
+    $(this).find('.loading').fadeIn(50);     
+     var files = fileSelect.files;
+     // Create a new FormData object.
+    var formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+    //  alert(file.name);
+      // Check the file type.
+      if (!file.type.match('image.*')) {
+        continue;
+      }
+
+      // Add the file to the request.
+      formData.append('pfile', file, file.name);
+      
+    //   $(this).find('.caption .fileUpload').html('<img src="<?php echo base_url().'iweb/themes/default/assets/images/ajax-loader.gif'  ?>">');
+
+      // Set up the request.
+      var xhr = new XMLHttpRequest();
+      // Open the connection.
+      xhr.open('POST', $(this).attr("action"), true);
+      // Set up a handler for when the request finishes.
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          
+        $('.loading').fadeOut();  
+        if(xhr.responseText != 'error'){
+      
+          //$(".img-thumbnail").attr("src" ,xhr.responseText )
+          //$(".avatar").attr("src" ,xhr.responseText )
+      
+
+setTimeout(function(){
+
+if($('.croppie-container').length == 0){
+
+$('#nop').hide()
+
+uploadCrop = $('#upload-demo').croppie({
+    url: xhr.responseText,
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+}else{
+ 
+$('#upload-demo').html('')
+$('#upload-demo').removeClass('croppie-container')
+var uploadCrop;
+
+uploadCrop = $('#upload-demo').croppie({
+    url: xhr.responseText,
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+
+}
+},1000)
+    
+      //     $('.caption .fileUpload').html('<span>Change</span><input type="file" class="upload" id="picture" name="pfile"/>');  
+                      
+      $('#picture').val('');         
+
+
+        }
+                  // File(s) uploaded.
+        //  uploadButton.innerHTML = 'Upload';
+        } else {
+          alert('An error occurred!');
+        }
+      };
+      
+      // Send the Data.
+    xhr.send(formData);
+
+    }
+     
+     return false;
+    })
+
+
+    });
+
+
+
+
+
+    </script>
+
+
+</div>                            
+                           
+                         
+      </div>
+      <div class="modal-footer">
+        
+
+        <button type="button" class="btn btn-default" onclick="tomar_foto()" data-toggle="tooltip" title="Tomar foto"><i class="fa fa-camera" aria-hidden="true"></i></button>
+
+        <button type="button" class="btn btn-default" onclick="$('#picture').click()" data-toggle="tooltip" title="Buscar en archivos"><i class="fa fa-folder-open" aria-hidden="true"></i></button>
+        <button type="button" disabled class="btn btn-default apply" data-toggle="tooltip" title="Aplicar cambios"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Cerrar"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+var webcam = false;
+    function hasGetUserMedia() {
+        navigator.getUserMedia = navigator.getUserMedia || // Opera
+            navigator.webkitGetUserMedia || // Chrome, Safari
+            navigator.mozGetUserMedia || // Mocilla nightly
+            navigator.msGetUserMedia;
+        if (navigator.getUserMedia) {
+            return true
+        }
+        return false;
+    } // fin de hasGetUserMedia();
+    function hasURL() {
+        window.URL = window.URL || window.webkitURL
+            || window.mozURL || window.msURL;
+        if (window.URL && window.URL.createObjectURL) {
+            return true;
+        }
+        return false;
+    } // fin de hasURL();
+    function error(e) {
+        alert("Fallo en la aplicaciÃ³n. "+e);
+    } // fin de error();
+    function setStream(stream) {
+        var webcam = document.getElementById("webcam");
+        webcam.src = window.URL.createObjectURL(stream);
+        webcam.play();
+    } // fin de getStream();
+    function onLoad () {
+        if (!hasGetUserMedia() || !hasURL()) {
+            alert("Tu navegador no soporta getUserMedia()");
+        } else {
+            navigator.getUserMedia(
+                {video: true, audio: false},
+                setStream,
+                error
+            );
+        }
+
+
+        canvas = document.getElementById("canvas"),
+            context = canvas.getContext("2d"),
+            video = document.getElementById("webcam");
+
+
+
+
+    } // fin de onLoad();
+ 
+
+var url
+
+  function tomar_foto(){
+
+    var  capture_panel = '<video id="webcam" width="298" height="300">Tu navegador no es compatible con la etiqueta video de HTML5.</video></div><canvas id="canvas" width="298" height="300" style="display:none; border: 1px #000 solid;">Tu navegador no es compatible con la etiqueta canvas de HTML5.</canvas><div align="center"><button type="button" id="captura" class="btn btn-danger btn-small"><i class="fa fa-check-circle"></i></button></div>';
+
+   var panel_camera = document.getElementById('photo-preview');
+        $('#upload-demo').hide();
+$('#photo-preview').show();
+
+$('.apply').attr('disabled',true);
+   $('.apply').removeClass('btn-success').addClass('btn-default');
+
+$('#nop').hide()
+
+        panel_camera.innerHTML =  capture_panel;
+
+        onLoad()
+
+        $('#captura').click(function(){
+        
+
+      $('.loading').show()
+   
+
+        context.drawImage(video, 0, 0, 298, 300);
+
+
+        url = canvas.toDataURL();
+
+  $('#photo-preview').hide();
+  $('#upload-demo').show();
+
+      
+
+if($('.croppie-container').length == 0){
+console.log("cargando libreria luego de video");
+
+
+uploadCrop = $('#upload-demo').croppie({
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+}
+
+
+      uploadCrop.croppie('bind', {
+        url: url
+      }).then(function(){
+
+        $('.loading').hide()
+       
+        $('.apply').removeAttr('disabled').addClass('btn-success'); 
+
+        console.log('jQuery bind complete');
+      });
+
+
+        })
+
+        
+
+
+
+  }
+    
+
+$(document).ready(function(){
+
+      $('#profileimage').on('show.bs.modal', function () {
+
+        $('.apply').on('click', function (ev) {
+  $('.apply').attr('disabled',true);
+
+  uploadCrop.croppie('result', {
+    type: 'canvas',
+    size: 'viewport'
+  }).then(function (resp) {
+
+
+      $('.loading').show()
+
+    $.ajax({
+      url: "api/photo/",
+      type: "POST",
+      data: {"image":resp,user:localStorage.getItem('user_id')},
+      success: function (data) {
+        //html = '<img src="' + resp + '" />';
+        scope.usuario.avatar = resp;
+        $("#avatar").attr('src',resp);
+        
+        $('.apply').removeClass('btn-success').addClass('btn-default');
+      $('.loading').hide()
+        uploadCrop.croppie('destroy') 
+       $('#profileimage').modal('hide')
+
+      }
+    });
+  });
+});
+
+ });
+
+
+  $('#portadaimage').on('show.bs.modal', function () {
+
+        $('.apply2').on('click', function (ev) {
+  $('.apply2').attr('disabled',true);
+
+  uploadCrop2.croppie('result', {
+    type: 'canvas',
+    size: 'viewport'
+  }).then(function (resp) {
+
+
+      $('.loading').show()
+
+    $.ajax({
+      url: "<?php echo base_url('index.php/secure/uploadphoto/'.$customer->id);?>/1",
+      type: "POST",
+      data: {"image":resp},
+      success: function (data) {
+        //html = '<img src="' + resp + '" />';
+        $(".cover-photo").css('background-image','url('+resp+')');
+        
+        $('.apply2').removeClass('btn-success').addClass('btn-default');
+      $('.loading').hide()
+        uploadCrop2.croppie('destroy') 
+       $('#portadaimage').modal('hide')
+
+      }
+    });
+  });
+});
+
+ });
+
+
+    })
+  </script>  
+

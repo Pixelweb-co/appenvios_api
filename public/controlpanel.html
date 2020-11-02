@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Panel Agilenvio</title>
+  </head>
+  <body >
+    <h1>Dasboard</h1>
+
+
+    <div class="container" ng-app="myApp" ng-controller="control">
+      
+      <div class="row">
+        <div class="col-md"><h2>Usuarios conectados</h2>
+
+          <div class="usuarios chat-c">
+            <ul id="userlista">
+              
+            
+          </ul>
+          </div>
+
+        </div>
+        <div class="col-md">
+          <h2>Solicitudes Abiertas</h2>
+          <a href="#" id="cargars">Cargar</a>
+          <div class="sala chat-c" id="sala">
+            
+          </div></div>
+        <div class="col-md"><h2>Solicitudes en curso</h2>
+          
+ <div class="privado chat-c">
+            
+          </div></div>
+      </div>
+      <div class="row">
+        <div id="selected"></div>
+        <button class="btn btn-success" id="snd">Enviar alerta a user:</button>
+      </div>
+
+    </div>
+
+<style type="text/css">
+  .chat-c{
+    width: 95%;
+    min-height: 300px;
+    background-color: #CCC
+  }
+</style>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io({query: {cliente:'admin'}});
+
+   var messages = [];
+   
+var scope ; 
+
+   var socketId ;
+    var socket = io.connect('https://superenvio.co:443');
+    var field = document.getElementById("mensajes");
+    var sendButton = document.getElementById("send");
+    var content = document.getElementById("sala");
+    var name = document.getElementById("namef");
+ var loadchat = document.getElementById("loadc");
+
+var sendButtonp = document.getElementById("btnep");
+
+socket.on('userList', (userList,socketId) => {
+
+
+
+ $('#userlista').html("");
+
+        if(socketId === null){
+            socketId = socketId;
+        }
+         
+       
+
+      $.each(userList, function(key,value){
+
+        $('#userlista').append("<li>"+"<a href='#' class='userli' data-id='"+value.id+"'' data-push_id='"+value.push_id+"''>"+value.userName+"("+value.id+")"+"</a></li>");
+
+      })
+
+
+$(".userli").click(function(){ 
+
+id_sel = $(this).data('id');
+
+$("#selected").html(id_sel);
+
+console.log("sel",id_sel);
+
+})
+
+        console.log("usuarios: ",userList );
+       
+ 
+ 
+    socket.on('exit', (userList) => {
+        $scope.usuarios = userList;
+    });
+
+   
+
+
+
+
+});  
+
+
+
+ socket.on('solicitudes_encurso_data', function (data) {
+
+    
+      console.log("solicitudes en curso",data)
+        
+            messages = data.data;
+
+            var html = '';
+            for(var i=0; i<messages.length; i++) {
+                html += '<b>Origen: ' + messages[i].origen +' Destino: ' + messages[i].origen +' Valor: '+ messages[i].tarifa +' </b><br>------------------------<br>';
+                
+            }
+             $(".privado").html(html);
+
+
+       
+    });
+
+ socket.on('solicitudes_abiertas', function (data) {
+
+    
+        
+            messages = data.data;
+
+            var html = '';
+            for(var i=0; i<messages.length; i++) {
+                html += '<b>Origen: ' + messages[i].origen +' Destino: ' + messages[i].origen +' Valor: '+ messages[i].tarifa +' </b><br>------------------------<br>';
+                
+            }
+            content.innerHTML = html;
+
+
+      console.log("solicitudes abiertas",messages)
+       
+    });
+
+    socket.on('sendMsg', (data) => {
+        console.log(data)
+
+        $(".privado").append('<p><b>'+data.name+': </b>'+data.msg+'</p>');
+
+
+    });
+
+
+        socket.on('to_adminf', (data) => {
+        alert('to admin ',data)
+
+    });
+
+
+$(document).ready(function(){
+$('#cargars').click(function(){
+console.log('load');
+
+
+socket.emit('solicitudes_get',''); 
+socket.emit('solicitudes_encurso',''); 
+
+
+})
+
+
+$('#snd').click(function(){
+
+socket.emit('getMsg',{toid:id_sel,msg:"hola"});
+  
+
+})
+
+})
+
+</script>
+  </body>
+</html>

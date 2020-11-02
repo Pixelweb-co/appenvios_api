@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+        <meta charset="utf-8">
+        <title>SuperEnvio </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        
+        <link href="assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="assets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+
+        <link href="assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
+
+    
+       <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+
+
+
+        <link rel="shortcut icon" href="favicon.ico"> 
+
+
+        <style type="text/css">
+            
+         .page-header.navbar {
+
+         background: #2953cc !important;
+         border-bottom: 1px solid #e9ecf3;
+
+        }
+
+        .page-header.navbar .page-logo .logo-default {
+
+            margin: 10px 10px 0;
+ 
+        }
+
+        .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
+
+    color: #FFFFFF;
+
+}
+
+
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.chatb .panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+    background-color: #e9ecf3
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+
+
+.map {
+        height: 400px;
+        width: 100%;
+      }
+
+
+
+.modal-body {
+    position: relative;
+    padding: 2px;
+}
+
+
+
+.tabbable-custom>.tab-content {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 2px;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -ms-border-radius: 0 0 4px 4px;
+    -o-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}      
+
+
+.bubble{
+
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+
+
+.bubble::before {
+    background-color: #F2F2F2;
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+    width:  20px;
+}
+
+.me {
+    float: left;   
+    margin: 5px 45px 5px 20px;         
+}
+
+.me::before {
+    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    left: -9px;           
+}
+
+.you {
+    float: right;    
+    margin: 5px 20px 5px 45px;         
+}
+
+.you::before {
+    box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+    right: -9px;    
+}
+
+
+.msj_item{
+    margin-bottom: 7px
+}
+
+
+.link-servicio {
+    margin: 0;
+    padding: 0;
+    height: 75px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.link-servicio a{
+   margin-top: 10%;
+   color:white;
+   padding: 0px;
+   font-weight: bold;
+   border: 1px #FFF solid;
+   border-radius: 8px 8px 8px 8px!important;
+}
+
+.link-servicio a:hover{
+
+background-color: lime!important;
+color: white!important;
+
+}
+
+
+@media (min-width: 992px)
+.page-content-wrapper .page-content {
+    margin-left: 0 !important; 
+    margin-top: 0;
+    min-height: 600px;
+    padding: 10px 0 0 20px;
+}
+
+
+@media (min-width:900px){
+
+.logo-fd {
+    margin: 2px 10px 0 !important;
+    }
+
+
+
+.desc{
+    font-size: 18pt !important
+}
+
+
+    }
+
+
+.logo-fd{
+    width: 200px;
+    margin: 5px 10px 0 !important;
+}    
+
+
+.desc{
+    font-size: 8pt !important
+}
+
+        </style>
+
+
+        <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style></head>
+
+
+<script type="text/javascript">
+                
+                if(!localStorage.getItem('token')){
+                    location.href = 'login.html';
+                } 
+
+
+            </script>
+
+
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" ng-app="AgilEnvio" ng-controller="solController">
+        <div class="page-header navbar navbar-fixed-top" style="height: auto;">
+            <div class="page-header-inner ">
+                <div class="page-logo">
+                    <a href="principal.html"> 
+                    <img src="images/LOGO-02.png" alt="AgilEnvio" class="logo-fd"> </a>
+                   
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+              
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE ACTIONS -->
+                <!-- DOC: Remove "hide" class to enable the page header actions -->
+                
+                
+                
+                <div class="page-top">
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                    
+                    <!-- END HEADER SEARCH BOX -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="separator hide"> </li>
+                            <li class="link-servicio">
+                                    <a href="javascript:add_svr()" class="btn-solicitud-add" >
+                                            <i class="icon-plus"></i> Solicitar servicio </a>
+                                </li>
+                            <!-- BEGIN NOTIFICATION DROPDOWN -->
+                            <li class="separator hide"> </li>
+                            <!-- BEGIN INBOX DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                    <i class="icon-envelope-open"></i>
+                                    <span class="badge badge-danger"> 4 </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="external">
+                                        <h3>You have
+                                            <span class="bold">7 New</span> Messages</h3>
+                                        <a href="app_inbox.html">view all</a>
+                                    </li>
+                                    <li>
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 275px;"><ul class="dropdown-menu-list scroller" style="height: 275px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
+                                            <li>
+                                                <a href="#">
+                                                    <span class="photo">
+                                                        <img src="assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                    <span class="subject">
+                                                        <span class="from"> Lisa Wong </span>
+                                                        <span class="time">Just Now </span>
+                                                    </span>
+                                                    <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                                </a>
+                                            </li>
+                                        </ul><div class="slimScrollBar" style="background: rgb(99, 114, 131) none repeat scroll 0% 0%; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END INBOX DROPDOWN -->
+                            <li class="separator hide"> </li>
+                            <!-- BEGIN TODO DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                    <i class="icon-calendar"></i>
+                                    <span class="badge badge-primary sabg">  </span>
+                                </a>
+                                <ul class="dropdown-menu extended tasks">
+                                    <li class="external">
+                                        <h3>Tienes
+                                            <span class="bold"><span class="sabg"></span> Ofertas de </span> Servicio</h3>
+                                        <a href="?p=page_todo_2">ver todo</a> 
+                                    </li>
+                                    <li>
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 275px;"><ul class="dropdown-menu-list scroller" style="height: 275px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1" ng-repeat="oferta_user in ofertas_servicio_user">
+                                            <li>
+                                                <a href="#" class="btnoferta" data-id="{{oferta_user._id}}" onclick="view_oferta(this)"> 
+                                                    <span class="photo">
+                                                        <img src="assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                    <span class="subject">
+                                                        <span class="from"> {{oferta_user.contratista_name}} </span><br>
+                                                        <!-- <span class="time">Just Now </span> -->
+                                                    </span>
+                                                    <span class="message" style="padding-left: 20%">Oferto tu solicitud por <b>$ {{oferta_user.valor | number}}</b></span>
+                                                </a>
+                                            </li>
+                                        </ul><div class="slimScrollBar" style="background: rgb(99, 114, 131) none repeat scroll 0% 0%; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END TODO DROPDOWN -->
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username username-hide-on-mobile"> {{usuario.nombres}} </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle" src="uploads/{{usuario.avatar}}"> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="#" class="nav-link" onclick="mis_datos()">
+                                            <i class="icon-user"></i> Editar Mis datos </a>
+                                    </li>
+                                    <li>
+                                        <a href="principal.html">
+                                            <i class="icon-calendar"></i> Mis solicitudes
+                                            <span class="badge badge-success"> 7 </span> </a>
+                                    </li>
+                                    
+                                   
+                                    <li class="divider"> </li>
+                                    
+                                    <li>
+                                        <a href="#" class="salir-bt">
+                                            <i class="icon-key"></i> Salir </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                            <li class="dropdown dropdown-extended quick-sidebar-toggler salir-bt">
+                                <span class="sr-only">Toggle Quick Sidebar</span>
+                                <i class="icon-logout"></i>
+                            </li>
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+            <div class="page-container">
+
+                
+                 <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="content">
+                    <div class="page-content-body">
+
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1>Tus solicitudes
+                                
+                            </h1>
+                        </div>
+
+                        <div class="page-toolbar">
+                            
+                         <!--    <a  href="solicitud.html" class="nav-link ajaxify"><i class="icon-calendar"></i> Solicitar servicio</a> END PAGE TOOLBAR -->
+
+                            
+                            
+                        </div>
+                       
+
+
+
+                    </div>
+
+                    <!-- BEGIN PAGE BREADCRUMB -->
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="index.html">Principal</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        
+                    </ul>
+                    <!-- END PAGE BREADCRUMB -->
+                <!-- BEGIN DASHBOARD STATS 1-->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-hide">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="0" class="tsl">0</span>
+                                    </div>
+                                    <div class="desc"> Total solicitudes </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-hide">
+                            <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="1" class="sabg">0</span> </div>
+                                    <div class="desc"> Solicitudes en curso </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-hide">
+                            <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="1" class="bsc">0</span>
+                                    </div>
+                                    <div class="desc"> Solicitudes entregadas </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 xs-hide">
+                            <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-globe"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> 
+                                        <span data-counter="counterup" data-value="0" class="bsx">0</span> </div>
+                                    <div class="desc"> Solicitudes pendientes </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- END DASHBOARD STATS 1-->
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <div class="portlet light bordered">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <i class=" icon-social-twitter font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Actividad de servicios</span>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_actions_active" data-toggle="tab" id="tab-act"> En curso </a>
+                                        </li>
+                                        <li >
+                                            <a href="#tab_actions_pending" data-toggle="tab" id="tab-pen"> Pendientes </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_actions_completed" data-toggle="tab" id="tab-com"> Completados </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_actions_active">
+  <!-- BEGIN: Actions -->
+                                            <div class="mt-actions">
+                                                <div class="mt-action" ng-repeat="solicitud in solicitudes_activas | orderBy : '-fecha'"> 
+                                                    <div class="mt-action-img" align="center" style="font-size: 30px">
+                                                       <i class="icon-user"></i></div>
+                                                    <div class="mt-action-body">
+                                                        <div class="mt-action-row">
+                                                            <div class="mt-action-info ">
+                                                                <div class="mt-action-icon ">
+                                                                    <!-- <i class="icon-magnet"></i>
+ -->                                                                </div>
+                                                                <div class="mt-action-details ">
+                                                                    <span class="mt-action-author">Origen: {{solicitud.origen}} - Destino: {{solicitud.destino}}</span>
+                                                                    <p class="mt-action-desc">Valor: $ {{solicitud.tarifa}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-action-datetime ">
+                                     
+                                                                <span class="mt-action-date" ng-bind="convertToDate(solicitud.fecha) | date:'medium'"></span>
+                                                             
+
+                                                                <span class="mt-action-dot " ng-class ="{'bg-green': solicitud.estado = 'En curso' }"></span>
+                                                                
+                                                            </div>
+                                                            <div class="mt-action-buttons ">
+                                                                <div class="btn-group btn-group-circle">
+                                                                    <button type="button" class="btn btn-outline green btn-sm versol" data-id="{{solicitud._id}}">Ver</button>
+                                                                    <button type="button" data-id="{{solicitud._id}}" class="cancelar_solicitud btn btn-outline red btn-sm">Cancelar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                            <!-- END: Actions -->
+                                        </div>    
+
+                                        <div class="tab-pane " id="tab_actions_pending">
+                                            <!-- BEGIN: Actions -->
+                                            <div class="mt-actions">
+                                                <div class="mt-action" ng-repeat="solicitud in solicitudes_pendientes | orderBy : '-fecha'">
+                                                     <div class="mt-action-img" align="center" style="font-size: 30px">
+                                                       <i class="icon-user"></i></div>
+                                                    <div class="mt-action-body">
+                                                        <div class="mt-action-row">
+                                                            <div class="mt-action-info ">
+                                                                <div class="mt-action-icon ">
+                                                                    <!-- <i class="icon-magnet"></i> -->
+                                                                </div>
+                                                                <div class="mt-action-details ">
+                                                                    <span class="mt-action-author">Origen: {{solicitud.origen}} - Destino: {{solicitud.destino}}</span>
+                                                                    <p class="mt-action-desc">Valor: $ {{solicitud.tarifa}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-action-datetime ">
+                                                                <span class="mt-action-date" ng-bind="convertToDate(solicitud.fecha) | date:'medium'"></span>
+                                                                <span class="mt-action-dot " ng-class ="{'bg-purple': solicitud.estado = 'Abierta' }"></span>
+                                                            </div>
+                                                            <div class="mt-action-buttons ">
+                                                                <div class="btn-group btn-group-circle">
+                                                                    <button type="button" class="btn btn-outline green btn-sm versol" data-id="{{solicitud._id}}">Ver</button>
+                                                                    <button type="button" data-id="{{solicitud._id}}" class="cancelar_solicitud btn btn-outline red btn-sm">Cancelar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                            <!-- END: Actions -->
+                                        </div>
+
+                                    
+
+
+                                        <div class="tab-pane" id="tab_actions_completed">
+                                            <!-- BEGIN:Completed-->
+                                            <div class="mt-actions">
+                                                <div class="mt-action" ng-repeat="solicitud in solicitudes_completadas | orderBy : '-fecha'"> <div class="mt-action-img" align="center" style="font-size: 30px">
+                                                       <i class="icon-user"></i></div>
+                                                    <div class="mt-action-body">
+                                                        <div class="mt-action-row">
+                                                            <div class="mt-action-info ">
+                                                                <div class="mt-action-icon ">
+                                                                   <!--  <i class="icon-magnet"></i> -->
+                                                                </div>
+                                                                <div class="mt-action-details ">
+                                                                    <span class="mt-action-author">Origen: {{solicitud.origen}} - Destino: {{solicitud.destino}}</span>
+                                                                    <p class="mt-action-desc">Valor: $ {{solicitud.tarifa}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-action-datetime ">
+                                                                <span class="mt-action-date" ng-bind="convertToDate(solicitud.fecha) | date:'medium'"></span>
+                                                                <span class="mt-action-dot "></span>
+                                                                
+                                                            </div>
+                                                            <div class="mt-action-buttons ">
+                                                                <div class="btn-group btn-group-circle">
+                                                                    <button type="button" class="btn btn-outline green btn-sm versol" data-id="{{solicitud._id}}">Ver</button>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- END: Completed -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+
+                </div>
+                </div>        
+
+
+            </div>        
+
+
+     
+    </div>
+
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> 2018 © SuperEnvio
+               
+            </div>
+            <div class="scroll-to-top" style="display: none;">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+
+<div id="modal_servicio_tomado" class="modal fade in bs-modal-sm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc ; color: white">
+                   
+                    <h4 class="modal-title">Tu mensajero va en camino!</h4>
+                </div>
+                <div class="modal-body">
+                   
+                    
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                             <div align="center"><h4>MENSAJERO:</h4></div>
+                            <img src="images/profile-placeholder.png" class="rounded" width="100%">
+                            <div align="center"><h4>{{aceptar_servicio.mensajero.nombres}} {{aceptar_servicio.mensajero.apellidos}}</h4>
+                        </div>
+                        </div>
+
+
+                                        
+
+
+                    <div class="col-md-8">
+                        
+
+                        <p>Ha tomado tu servicio : {{aceptar_servicio.solicitud.origen}} - {{aceptar_servicio.solicitud.destino}}<br>Por valor de $ {{aceptar_servicio.solicitud.tarifa | number}}</p>
+
+                        <p style="color:red">El mensajero se encuentra en camino.</p>
+
+
+                        <h4>Gracias por usar nuestro servicio!</h4>
+
+                        
+
+                    </div>
+                    
+
+
+                </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                       <button class="btn btn-primary versol" data-id="{{aceptar_servicio.solicitud._id}}" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Ver solicitud</button>
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+
+
+<div id="modal_servicio_oferta" class="modal fade in">
+        <div class="modal-dialog"> 
+            <div class="modal-content">
+ 
+                 <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">HAN OFERTADO EN TU SOLICITUD DE ENVIO!</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+
+                             <div align="center"><h4>MENSAJERO:</h4></div>
+                            <img src="images/profile-placeholder.png" class="rounded" width="100%">
+                            <div align="center"><h4>{{oferta_servicio.contratista.nombres}} {{oferta_servicio.contratista.apellidos}}</h4>
+                        </div>
+                        </div>
+
+
+                                        
+
+
+                    <div class="col-md-8">
+                        
+
+                        <p>Ha hecho una oferta para realizar tu solicitud de servicio : {{oferta_servicio.solicitud.origen}} - {{oferta_servicio.solicitud.destino}}<br>Por valor de $ {{oferta_servicio.solicitud.tarifa | number}}</p>
+
+                        
+
+                    </div>
+                    
+
+
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                       
+                        <button data-oferta="{{oferta_servicio.oferta._id}}" class="btn btn-danger tomar_oferta" ><span class="glyphicon glyphicon-check"></span> Aceptar por $ {{oferta_servicio.oferta.valor | number}}</button>
+
+                        <button data-id="{{oferta_servicio.oferta.solicitud}}" class="btn btn-default versol" ><span class="glyphicon glyphicon-plus"></span> Ver solicitud</button>    
+                            
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-close"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+<div id="modal_nuevo_servicio" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                 <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">SOLICITUD DE SERVICIO CREADA!</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row"> 
+                        <div class="col-md-4">
+
+                             <div align="center"><h4>MENSAJERO:</h4></div>
+                            <img src="images/profile-placeholder.png" class="rounded" width="100%">
+                            <div align="center"><h4>{{aceptar_servicio.mensajero.nombres}} {{aceptar_servicio.mensajero.apellidos}}</h4>
+                        </div>
+                        </div>
+
+
+                                        
+
+
+                    <div class="col-md-8">
+                        
+
+                        <p>Ha cancelado el servicio : {{aceptar_servicio.solicitud.origen}} - {{aceptar_servicio.solicitud.destino}}<br>Por valor de $ {{aceptar_servicio.solicitud.tarifa | number}}</p>
+
+                        <p style="color:red">El mensajero se encuentra en camino.</p>
+
+
+                        <h4>Gracias por usar nuestro servicio!</h4>
+
+                        
+
+                    </div>
+                    
+
+
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                       
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+<div id="modal_servicio_cancelado" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">SOLICITUD DE SERVICIO CANCELADA!</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+
+                             <div align="center"><h4>MENSAJERO:</h4></div>
+                            <img src="images/profile-placeholder.png" class="rounded" width="100%">
+                            <div align="center"><h4>{{cancelar_servicio.contratista.nombres}} {{cancelar_servicio.contratista.apellidos}}</h4>
+                        </div>
+                        </div>
+
+
+                                        
+
+
+                    <div class="col-md-8">
+                        
+
+                        <p>Ha cancelado el servicio : {{cancelar_servicio.solicitud.origen}} - {{cancelar_servicio.solicitud.destino}}<br>Por valor de $ {{cancelar_servicio.solicitud.tarifa | number}}</p>
+
+                        <p style="color:red">La solicitud esta a la espera a que otro mensajero la tome, agradecemos su espera.</p>
+
+
+                        <h4>Detalles de la cancelación:</h4>
+
+                        <b>{{cancelar_servicio.texto_cancelacion}}</b>
+
+                    </div>
+                    
+
+
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                       <button class="btn btn-primary versol" data-id="{{cancelar_servicio.solicitud._id}}" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Ver solicitud</button>
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+<div id="modal_servicio_terminado" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">SOLICITUD DE SERVICIO ENTREGADA!</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row">
+                        <div class="col-md-4"> 
+
+                             <div align="center"><h4>MENSAJERO:</h4></div>
+                            <img src="images/profile-placeholder.png" class="rounded" width="100%">
+                            <div align="center"><h4>{{termiar_servicio.contratista.nombres}} {{termiar_servicio.contratista.apellidos}}</h4>
+                        </div>
+                        </div>
+
+
+                                        
+
+
+                    <div class="col-md-8">
+                        
+
+                        <p>Ha entregado el servicio : {{termiar_servicio.solicitud.origen}} - {{termiar_servicio.solicitud.destino}}<br>Por valor de $ {{termiar_servicio.solicitud.tarifa | number}}</p>
+
+                     
+                     <h1>Gracias por usar nuestro servicio!</h1>
+
+                    </div>
+                    
+
+
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                       <button class="btn btn-primary versol" data-id="{{cancelar_servicio.solicitud._id}}" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Ver solicitud</button>
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+
+<div id="modal_solicitud" class="modal fade in ">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">SOLICITUD DE MENSAJERO</h4>
+                </div>
+                <div class="modal-body" >
+
+
+
+                    <div class="tabbable-custom ">
+                                        <ul class="nav nav-tabs ">
+                                            <li class="active">
+                                                <a href="#tab_5_1" data-toggle="tab" id="tab1sol"> Datos del servicio </a>
+                                            </li>
+                                            <li ng-if="solicitud_sel.contratista">
+                                                <a href="#tab_5_2" data-toggle="tab" id="trkbt"> Ubicación </a>
+                                            </li>
+                                            <li ng-if="solicitud_sel.contratista">
+                                                <a href="#tab_5_3" data-toggle="tab" id="chatbtf"> Chat <span id="newmsg" ng-if="leidos != 0" class="badge badge-danger">{{leidos}}</span></a>
+                                            </li>
+                                               <li ng-if="!solicitud_sel.contratista">
+                                                <a href="#tab_5_4" data-toggle="tab" id="chatbtof"> Ofertas <span id="ofmsg"></span></a>
+                                            </li>
+                                                
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab_5_1">
+                                        
+
+                     <div class="row">
+                        
+                        <div class="col-md-7">
+                        
+
+<!-- BEGIN Portlet PORTLET-->
+                                            <div class="portlet box green" >
+                                                <div class="portlet-title">
+                                                    <div class="caption"> 
+                                                        <i class="fa fa-user"></i>Información Básica </div>
+                                                    
+                                                </div>
+                                                <div class="portlet-body">
+
+
+                        <div class="row">
+                        <div class="col-md-3 col-xs-6"><b>Numero:</b></div>
+                        <div class="col-md-3 col-xs-6">7454</div>
+                        <div class="col-md-3 col-xs-6"><b>Estado:</b></div>
+                        <div class="col-md-3 col-xs-6">{{solicitud_sel.estado}}</div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6"><b>Presupuesto:</b></div>
+                        <div class="col-md-3 col-xs-6"><b style="color:red">$ {{solicitud_sel.tarifa | number}}</b></div>
+                        <div class="col-md-3 col-xs-6"><b>Valor contratado:</b></div>
+                        <div class="col-md-3 col-xs-6" style="color:red; font-weight: bold;">$ <span ng-bind="solicitud_sel.valor_contratado | number" > </span>
+                        </div> 
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 col-xs-6" ><b>Tipo:</b></div>
+                        <div class="col-md-10 col-xs-6"> PAQUETE</div>
+                        <div class="col-md-2 col-xs-6"><b>Fecha:</b></div>
+                        <div class="col-md-5 col-xs-6"><span ng-bind="convertToDate(solicitud_sel.fecha) | date:'medium'"> </span>
+                        </div> 
+
+                    </div>
+                                                    
+                                                    
+
+
+                                                </div>
+                                            </div>
+                                            <!-- END Portlet PORTLET-->
+
+
+                        
+
+                    <div class="clearfix"></div>
+                    <div class="row-fluid">
+                         <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-user"></i>Trayectos </div>
+                                                    
+                                                </div>
+                                                <div class="portlet-body" style="overflow-x: none;overflow-y:scroll; max-height: 200px; padding: 0px !important">
+                                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-initialized="1">
+                            
+
+                                                         <div class="mt-element-list">
+                                       
+                                        <div class="mt-list-container list-default ext-1">
+                                            
+                                            <ul>
+                                                <li class="mt-list-item done" ng-repeat="trayecto in solicitud_sel.trayectos">
+                                                    <div class="list-icon-container">
+                                                        <a href="javascript:;">
+                                                            
+                                                            {{$index + 1}}
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase"> 
+                                                            {{trayecto.direccion}}
+                                                        </h3>
+                                                        <p>Ciudad: <b>{{trayecto.ciudad}}</b></p>
+                                                        <p>Contacto: <b>{{trayecto.contacto}}</b></p>
+                                                    
+                                                    </div>
+
+
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                            <div class="col-md-7">  
+                    <!-- BEGIN Portlet PORTLET-->
+                                           
+                                                        
+
+
+
+                         
+
+                                     </div>
+                                     <div class="col-md-5">  
+                                     <b>Ciudad: </b><br><span id="cidt"></span> <br>   
+                                     <b>Dirección: </b><br><span id="dirt"></span> <br>
+                                     <b>Contácto: </b><br><span id="cont"></span> <br>     
+                                     <b>Diligencia adicional: </b><br><span id="dilt"></span> <br>   
+                                     </div>
+
+
+
+                                                        </div><div class="slimScrollBar" style="background: rgb(187, 187, 187) none repeat scroll 0% 0%; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 44.4444px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                                </div>
+                                            </div>
+                                            <!-- END Portlet PORTLET-->
+                    </div>
+                        </div>
+                        <div class="col-md-5">   <!-- BEGIN Portlet PORTLET-->
+                                            <div class="portlet box green" ng-if="solicitud_sel.contratista">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-user"></i>Mensajero </div>
+                                                    
+                                                </div>
+                                                <div class="portlet-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6 col-sm-6"><b>Nombre:</b><br>
+                                                    {{contratista_sel.nombres}}</div>
+                                                            <div class="col-md-6 col-xs-6 col-sm-6">
+                                                                
+                                                                <b>Telefono:</b><br>
+                                                    {{contratista_sel.telefono}}
+                                                            </div>
+
+                                                        </div>
+
+                                                    <div class="row">
+                                                            <div class="col-md-6 col-xs-6 col-sm-6"><b>Placa vehiculo:</b></div>
+
+                                                            <div class="col-md-6 col-xs-6 col-sm-6">
+                                                    {{contratista_sel.placa_vehiculo}}</div>
+
+                                                            
+
+                                                </div>
+                                                
+
+                                                    
+                                                    
+
+
+                                                </div>
+                                            </div>
+                                            <!-- END Portlet PORTLET-->
+                                            
+
+                                            <!-- BEGIN Portlet PORTLET-->
+                                            <div class="portlet box blue" *ng-if="solicitud_sel.observaciones != ''">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-user"></i>Observaciones </div>
+                                                    
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 70px;"><div class="scroller" style="height: 70px; overflow-y:scroll; overflow-x:none; width: auto;" data-initialized="1">
+                                                        <p>
+                                                            {{solicitud_sel.observaciones}}
+
+                                                         </p>
+                                                    </div><div class="slimScrollBar" style="background: rgb(187, 187, 187) none repeat scroll 0% 0%; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 44.4444px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                                </div>
+                                            </div>
+                                            <!-- END Portlet PORTLET-->    
+
+
+                                        </div>
+                        
+                    </div>
+
+                                            </div>
+                                            <div class="tab-pane" id="tab_5_2">
+                                        <div id="map_solicitud" class="map"></div>
+
+                                            </div>
+                                            
+                                                <div class="tab-pane" id="tab_5_3">
+                                                     
+                                                    <div class="panel " ng-if="solicitud_sel.contratista">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat solicitud
+                    
+
+                    <div class="clearfix"></div>
+                    <div style="min-height: 20px; ">
+                    <span id="writing" style="display: none;">Escribiendo ...</span>
+                    </div>
+                </div>
+            <div class="panel-collapse chatb" id="collapseOne">
+                <div class="panel-body scroll-b" style="height: 300px">
+                   
+                  
+                    <div class="chat">
+                        
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-inputc" type="text" class="form-control input-sm" placeholder="Escribe tu mensaje..." />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="sendmsg()">
+                                Enviar</button>
+
+
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>    
+                                                </div>
+
+
+                                                <div class="tab-pane" id="tab_5_4" >
+                                                        <div class="mt-element-list">
+                                        <div class="mt-list-head list-default ext-1 blue">
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <div class="list-head-title-container">
+                                                        <h3 class="list-title uppercase sbold">Ofertas recibidas</h3>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="list-head-summary-container">
+                                                        <div class="list-pending">
+                                                            <div class="list-count badge badge-default ">3</div>
+                                                            <div class="list-label">Ofertas</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-list-container list-default ext-1">
+                                            
+                                            <ul>
+                                                <li class="mt-list-item done" ng-repeat="oferta in ofertas_servicio">
+                                                    <div class="list-icon-container">
+                                                        <a href="javascript:;">
+                                                            <i class="icon-check"></i>
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">$ {{oferta.valor | number}}</a>
+                                                        </h3>
+                                                        <p>Mensajero: <b>pepe</b></p>
+                                                    
+                                                    <button class="btn btn-success btctr" data-oferta="{{oferta._id}}">Contratar</button>
+
+                                                    </div>
+
+
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                                </div>
+
+                                        </div>
+                                    </div>
+                    
+
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="btn btn-warning"><span class="glyphicon glyphicon-close"></span> Cancelar solicitud</button>
+                       
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+
+<div id="modal_servicio_canelado_detalle" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+ 
+                <div class="modal-header" style="background-color: #2953cc; color:white">
+                    
+                    <h4 class="modal-title">CANCELAR SOLICITUD!</h4>
+                </div>
+                <div class="modal-body">
+                        
+                        <div class="row">
+                        <div class="col-md-12"> 
+
+                            <b>Por favor cuenténos el motivo de la cancelación de este servicio.</b>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12"> 
+
+                            <textarea id="cancelarte" style="width: 100%;" rows="10">
+                                
+
+
+                            </textarea>
+
+                             
+                        </div>
+                        </div>
+
+
+
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                   
+                    <div class="btn-group">
+                       <button class="btn btn-primary cancelar_sol" data-id="{{cancelar_servicio.solicitud._id}}" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cancelar solicitud</button>
+                       
+                       <button class="btn btn-primary versol" data-id="{{cancelar_servicio.solicitud._id}}" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Ver solicitud</button>
+                        <button class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span> Cerrar</button>
+                    </div>
+                </div>
+ 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+
+
+
+        <!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="assets/global/plugins/moment.min.js" type="text/javascript"></script>
+       
+        <script src="assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+       
+        
+        
+      
+        <script src="assets/global/plugins/horizontal-timeline/horozontal-timeline.min.js" type="text/javascript"></script>
+        
+        
+        <script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+        
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+       
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+     
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script> 
+        <script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+
+        <script src="assets/js/angular.min.js"></script> 
+        <script src="assets/js/socket.io.js"></script>
+        <link rel="stylesheet" href="assets/croppie/croppie.css" />
+        <script src="assets/croppie/croppie.js"></script>
+
+
+
+<link rel="stylesheet" href="assets/global/css/leaflet.css" >
+
+
+<link rel="stylesheet" href="assets/global/css/esri-leaflet-geocoder.css" > 
+
+
+<script src="assets/js/leaflet.js" ></script>
+
+<script src="assets/js/esri-leaflet.js" ></script>
+<script src="assets/js/esri-leaflet-geocoder.js" ></script>
+<script src="assets/js/easytimer.min.js" ></script> 
+<script src="assets/js/underscore-min.js" ></script> 
+<link rel="stylesheet" href="assets/global/css/leaflet-routing-machine.css" > 
+
+
+
+
+
+<style type="text/css">
+    
+    #map_solicitud {
+            width: 100%; 
+            height: 400px;
+            background-color: #CCC
+        }
+</style>
+
+
+       
+        <script src="assets/js/app/MovingMarker.js"></script>  
+        <script src="assets/js/app/Marker.Rotate.js"></script>  
+        <script src="assets/js/app/leaflet-routing-machine.js"></script> 
+        <script src="assets/js/app/principal.js"></script>
+    
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList"></script>
+
+
+
+
+</body></html>
+
+
+         
+<!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "25f62b3c-d924-40be-ade7-424f4e9854e1",
+      autoRegister: true,
+
+    });
+
+         OneSignal.sendTags({
+    user_id: localStorage.getItem('user_id'),
+    user_type: '1',
+  }).then(function(tagsSent) { 
+    // Callback called when tags have finished sending 
+    console.log(tagsSent);   
+  });
+
+  });
+</script>
+ Global site tag (gtag.js) - Google Analytics
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138784596-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-138784596-1');
+</script> -->

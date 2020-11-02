@@ -1,0 +1,120 @@
+<body>
+<ul id="salas"></ul>
+
+<a href="#" id="geoc">Obtener dato remoto</a>
+
+<span id="geor">0</span>
+
+</body>
+  <!-- BEGIN CORE PLUGINS -->
+        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/socket.io.js"></script>
+
+
+        <script type="text/javascript">
+var id_sel = "*";          
+
+  var socket = io('https://superenvio.co:3030', {query: {cliente:localStorage.getItem('user_id')}});
+            
+            socket.connect();
+
+
+socket.on('updateapp', function(data){
+    
+alert("updateapp");
+
+})
+
+
+
+socket.on('modal_servicio_tomado', function(data){
+
+console.log('servicio tomado',data);
+})
+
+
+
+socket.on('get_sol', function(data){
+alert('desde contratista')
+console.log('de contratista a sala',data);
+
+})
+
+
+socket.on('ver_salas', function(data){
+
+console.log('Salas (solicitudes en curso)',data);
+
+
+
+
+ $('#salas').html("");
+    
+       
+
+      $.each(data, function(key,value){
+
+        $('#salas').append("<li>"+"<a href='#' class='salali' data-id='"+value+"'>"+id_sel+" - "+value+"</a></li>");
+
+      })
+
+
+$(".salali").click(function(){ 
+
+var actual = id_sel;
+
+id_sel = $(this).data('id');
+
+$("#selected").html(id_sel);
+
+console.log("sel",id_sel);
+
+//ingresar a sala
+socket.emit('ver_solicitud',{solicitud:id_sel, actual:actual});
+
+})
+
+
+
+
+
+})
+
+
+socket.on('cancelada', function(data){
+    
+console.log("cancelado servicio");
+console.log(data);
+
+})
+
+socket.on('sendMsg', function(data){
+     
+alert('privado')
+
+
+})
+
+
+
+socket.on('get_geo', function(data){
+     
+     $("#geor").html(data);
+
+
+})
+
+$('#geoc').click(function(){
+
+	setInterval(function(){
+console.log("solicitando dato");
+
+
+			//pedir cordenadas
+socket.emit('coordenadas',id_sel);
+
+
+	},5000);
+})
+
+        </script>
