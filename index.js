@@ -1043,15 +1043,15 @@ var server_http = require("http");
 // );
 
 
-server.on("error", function(err) {
+server_http.on("error", function(err) {
 	console.error(err);
 });
-server.on("listening", function() {
+server_http.on("listening", function() {
 	console.log("Listening for SPDY/http2/https requests on", this.address());
 });
 //server.listen(443);
 
-io = socketio(server);
+io = socketio(server_http);
 
 var contratantes_online = [];
 var contratistas_online = [];
