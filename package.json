@@ -18,7 +18,7 @@
     "express-http-to-https": "^1.1.4",
     "greenlock": "^2.7.24",
     "greenlock-express": "^2.7.9",
-    "greenlock-store-fs": "^3.0.2",
+    "greenlock-store-fs": "^3.2.2",
     "jwt-simple": "latest",
     "lodash": "^4.17.20",
     "lodash.find": "^4.6.0",
