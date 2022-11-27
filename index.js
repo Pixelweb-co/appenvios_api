@@ -970,11 +970,11 @@ var greenlock = Greenlock.create({
 	// https://acme-staging-v02.api.letsencrypt.org/directory
 
 	// You MUST change this to a valid email address
-	email: "pixeleweb@iwebsuite.com",
+	email: "admin@pixelweb.com.co",
 
 	// You MUST NOT build clients that accept the ToS without asking the user
 	agreeTos: true,
-
+ 
 	// You MUST change these to valid domains
 	// NOTE: all domains will validated and listed on the certificate
 	approvedDomains: ["apienvios.pixelweb.com.co"],
