@@ -1019,11 +1019,6 @@ var server_http = require("http");
 	// 	console.log("Listening for ACME http-01 challenges en", this.address());
 	// });
 
-    server_http.createServer().listen(80, function() {
-		console.log("Listening for ACME http-01 challenges en", this.address());
-	});
-
-
 
 
 
@@ -1050,6 +1045,13 @@ var server_http = require("http");
 // 	console.log("Listening for SPDY/http2/https requests on", this.address());
 // });
 //server.listen(443);
+
+
+server_http.createServer().listen(80, function() {
+    console.log("Listening for ACME http-01 challenges en", this.address());
+});
+
+
 
 io = socketio(server_http);
 
