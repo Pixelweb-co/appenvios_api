@@ -1035,12 +1035,12 @@ var server_http = require("http");
 
 
 // spdy is a drop-in replacement for the https API
-var spdyOptions = Object.assign({}, greenlock.tlsOptions);
-spdyOptions.spdy = { protocols: ["h2", "http/1.1"], plain: false };
-var server = require("spdy").createServer(
-	spdyOptions,
-	app
-);
+// var spdyOptions = Object.assign({}, greenlock.tlsOptions);
+// spdyOptions.spdy = { protocols: ["h2", "http/1.1"], plain: false };
+// var server = require("spdy").createServer(
+// 	spdyOptions,
+// 	app
+// );
 
 
 server.on("error", function(err) {
