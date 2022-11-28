@@ -1011,12 +1011,12 @@ var acmeChallengeHandler = greenlock.middleware(function(req, res) {
 });
 	
 
-var server_http = require("http").Server(app);
+var server_http = require("http");
 
 
 
-	server_http.listen(80, function() {
-		console.log("Listening http server", this.address());
+	server_http.createServer(acmeChallengeHandler).listen(80, function() {
+		console.log("Listening for ACME http-01 challenges en", this.address());
 	});
 
 
@@ -1039,15 +1039,15 @@ var server = require("spdy").createServer(
 );
 
 
-// server.on("error", function(err) {
-// 	console.error(err);
-// });
-// server.on("listening", function() {
-// 	console.log("Listening for SPDY/http2/https requests on", this.address());
-// });
-//server.listen(443);
+server.on("error", function(err) {
+	console.error(err);
+});
+server.on("listening", function() {
+	console.log("Listening for SPDY/http2/https requests on", this.address());
+});
+server.listen(443);
 
-io = socketio(server_http);
+io = socketio(server);
 
 var contratantes_online = [];
 var contratistas_online = [];
