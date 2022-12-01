@@ -389,13 +389,32 @@ usuariom.findOne({_id: req.body.id}, function(err, user_s){
 
 })
 
+app.post('/auth/signup', function(req,res){
+
+    console.log(req.body)
+
+    usuariom.create({email: req.body.email, password: req.body.password}, function(err,obj) { 
+
+    }, function(err, solicitud){
+        if(err) {
+            res.send(err);
+        }
+        console.log("user new")
+       
+        
+    })
+
+    
+    
+    })
+
 app.post('/auth/login', function(req,res){
 
 //console.log(req.body)
-console.log({email: req.body.usuario, password: req.body.clave});
+console.log({email: req.body.email, password: req.body.password});
 
 
-usuariom.findOne({email: req.body.usuario, password: req.body.clave}, function(err,obj) { 
+usuariom.findOne({email: req.body.email, password: req.body.password}, function(err,obj) { 
 
 
 console.log("accedio db");
@@ -411,7 +430,7 @@ console.log(obj);
         // Y si la contraseÃ±a es correcta
         return res
             .status(200)
-            .send({token: service.createToken(obj),user:obj});
+            .send({status:'SUCCESS',message:"Logued Ok",token: service.createToken(obj),user:obj});
 
 
 
@@ -1030,13 +1049,13 @@ var server_http = require("http").Server(app);
 
 
 
-// spdy is a drop-in replacement for the https API
-var spdyOptions = Object.assign({}, greenlock.tlsOptions);
-spdyOptions.spdy = { protocols: ["h2", "http/1.1"], plain: false };
-var server = require("spdy").createServer(
-	spdyOptions,
-	app
-);
+// // spdy is a drop-in replacement for the https API
+// var spdyOptions = Object.assign({}, greenlock.tlsOptions);
+// spdyOptions.spdy = { protocols: ["h2", "http/1.1"], plain: false };
+// var server = require("spdy").createServer(
+// 	spdyOptions,
+// 	app
+// );
 
 
 // server.on("error", function(err) {

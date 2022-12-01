@@ -389,6 +389,15 @@ usuariom.findOne({_id: req.body.id}, function(err, user_s){
 
 })
 
+
+app.post('/auth/signup', function(req,res){
+
+console.log(req.body)
+
+
+})
+
+
 app.post('/auth/login', function(req,res){
 
 //console.log(req.body)
