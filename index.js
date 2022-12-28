@@ -42,7 +42,7 @@ var epayco = require('epayco-node')({
 
 
 const APP_ID = "25f62b3c-d924-40be-ade7-424f4e9854e1";
-const API_KEY = "NjlhNjcwMjgtOWQyYi00Mjg5LTgzYzYtMTFiNDg0ZmMwN2Yx";
+const API_KEY = "ZDliMDIxNmItM2UyYi00NmIyLWEwYWItN2Y3NDAyNDJlMWVk";
 const USER_KEY = "Nzg4ZmQ1YmUtOWVhMy00OWZkLTkyMzEtMjE3ZDU3NmI2YTc4";
 
 const DEVICE_IDS = ["DEVICE_TOKENS"];  
@@ -128,19 +128,15 @@ var Pin_pago = mongoose.model('Pin_pago',{
 
 
 var Solicitud = mongoose.model('Solicitudes', {  
-    trayectos:[],
-    origen:String,
-    destino:String,
-    contratante:Number,
-    estado:String,
-    fecha:String,
-    contratista:String,
-    contratante:String,
-    tarifa:Number, 
-    valor_contratado:Number,
-    lat:String,
-    Long:String,
-    observaciones:String
+    id: Number,
+    id_client: Number,
+    id_driver: Number,
+    status: String,
+    comments: Object,
+    destinations: Array,
+    tarifa: Object,
+    type: String,
+    origin: Object
 });
 
 
@@ -408,16 +404,36 @@ app.post('/auth/signup', function(req,res){
     
     })
 
-app.post('/auth/login', function(req,res){
+    app.post('/auth/signupc', function(req,res){
 
-//console.log(req.body)
+        console.log(req.body)
+    
+        usuariom.create({email: req.body.email, password: req.body.password}, function(err,obj) { 
+    
+        }, function(err, solicitud){
+            if(err) {
+                res.send(err);
+            }
+            console.log("user new")
+           
+            
+        })
+    
+        
+        
+        })
+    
+
+    app.post('/auth/login', function(req,res){
+
+
 console.log({email: req.body.email, password: req.body.password});
 
 
-usuariom.findOne({email: req.body.email, password: req.body.password}, function(err,obj) { 
+//usuariom.findOne({email: req.body.usuario, password: req.body.clave}, function(err,obj) { 
+    usuariom.find({ $and : [{"email" : req.body.email}, {"password" : req.body.password}]},  function(err,obj) {
 
-
-console.log("accedio db");
+console.log("accedio db ",err);
 
 console.log(obj)
 
@@ -697,8 +713,88 @@ Ofertas.find({contratante:req.body.user, estado:"0"},function(err,oferta_s){
 })
 
 
-//crear solicitud
 app.post('/api/solicitudes', function(req, res) {
+
+
+    console.log(req.body);
+
+    Solicitud.create(req.body.requisition, function(err, solicitud){
+        if(err) {
+            res.send(err);
+        }
+
+ 
+  //notifications_open.push({
+   //id:     solicitud.id,     
+   //title: 'MAXIENVIOS Nuevo servicio',
+   //text: 'Origen: '+solicitud.origen+' Valor: $'+tarifa,
+   //at: new Date(new Date().getTime() + 1 * 1000),
+   //led: 'FF0000',
+   //sound: 'res://platform_default'
+//})
+
+/////////////
+
+    var not = {title:"apienvios.pixelweb.com.co Nuevo servicio",message: "message"}; // req.body;
+    console.log("push notificacion 1")
+    var firstNotification = new OneSignal.Notification({
+        contents: {
+            en: 'Origen : '+solicitud.origin.title+' Valor: $'+solicitud.tarifa.valor
+        }
+        ,
+        //filters: [
+        //{"field": "tag", "key": "user_type", "relation": "=", "value": "0"}
+//    ]
+    });
+
+    firstNotification.setParameter('headings', {"en": not.title});
+    firstNotification.setParameter('data', {"type": "alert"});
+    firstNotification.setParameter('android_sound', "noti");
+
+    
+    // set target users
+    firstNotification.setIncludedSegments(['Mensajeros']);
+    firstNotification.setExcludedSegments(['Inactive Users']); 
+
+
+    myClient.sendNotification(firstNotification, function (err, httpResponse,data) {
+        if (err) {
+            res.status(500).json({err: err});
+        } else {
+            console.log(data, httpResponse.statusCode);
+            //res.status(httpResponse.statusCode).json(data);
+//            res.json(solicitud);
+        }
+    });
+
+/////////////////
+
+
+ 
+        Solicitud.find({status:'NEW'},function(err, solicitudes) {
+            if(err){
+                res.send(err);
+            }
+         //   socket.broadcast.to('lobby').emit('solicitudes_abiertas', { data: solicitudes });
+
+console.log("notification");
+//console.log(notifications_open);           
+            
+           // socket.broadcast.to('lobby').emit('notification', notifications_open);
+
+
+           
+            res.json(solicitudes);
+        });
+
+
+    });
+
+
+})    
+
+//crear solicitud
+app.post('/api/solicitudes2', function(req, res) {
 
 
 console.log(req.body['trayectos[]']);
@@ -803,9 +899,8 @@ console.log('---------------------------------NUEVA SOLICITUD EN PROCESO--------
             socket.broadcast.to('lobby').emit('solicitudes_abiertas', { data: solicitudes });
 
 console.log("notification");
-console.log(notifications_open);           
-            
-            socket.broadcast.to('lobby').emit('notification', notifications_open);
+
+            //socket.broadcast.to('lobby').emit('notification', notifications_open);
 
 
            
@@ -1034,7 +1129,7 @@ var server_http = require("http").Server(app);
 
 
 
-	server_http.listen(80, function() {
+	server_http.listen(2042, function() {
 		console.log("Listening http server", this.address());
 	});
 
@@ -1067,7 +1162,7 @@ var server_http = require("http").Server(app);
 //server.listen(443);
 
 io = socketio(server_http);
-
+var socket = null
 var contratantes_online = [];
 var contratistas_online = [];
 var solicitudes_rooms = [];
@@ -1075,7 +1170,7 @@ var usernames = [];
 
 // conexiones sockets
 io.on("connection", function(socket) {
-
+    socket = socket
 
 console.log("nuevo ususario user ",socket.id+' - id ususario: '+socket.handshake.query.cliente+' Terminal: '+socket.handshake.query.tipo);
 //console.log('parametros: ',socket.handshake);
@@ -1366,16 +1461,9 @@ socket.broadcast.to('contratantes').emit('cancelada', { solicitud: sol, contrati
 }
 
 Solicitud.find({estado:'Abierta'}, function (err, docs) {
-            
-
-            
 socket.broadcast.to('contratistas').emit('solicitudes_abiertas', { data: docs });
 socket.emit('solicitudes_abiertas', { data: docs });
-
-
-
-        });
-
+});
 
 
 })
