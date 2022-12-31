@@ -67,7 +67,7 @@
 var scope ; 
 
    var socketId ;
-    var socket = io.connect('http://192.168.0.3:443');
+    var socket = io.connect('http://192.168.0.2:2042');
     var field = document.getElementById("mensajes");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("sala");
@@ -90,7 +90,7 @@ socket.on('userList', (userList,socketId) => {
 
       $.each(userList, function(key,value){
 
-        $('#userlista').append("<li>"+"<a href='#' class='userli' data-id='"+value.id+"'' data-push_id='"+value.push_id+"''>"+value.userName+"("+value.id+")"+"</a></li>");
+        $('#userlista').append("<li>"+"<a href='#' class='userli' data-id='"+value.id+"'' data-push_id='"+value.push_id+"''>"+(value.nombres ? value.nombres : "Admin")+"</a></li>");
 
       })
 
@@ -142,13 +142,14 @@ console.log("sel",id_sel);
 
  socket.on('solicitudes_abiertas', function (data) {
 
+          console.log("sl ",data)
     
         
             messages = data.data;
 
             var html = '';
             for(var i=0; i<messages.length; i++) {
-                html += '<b>Origen: ' + messages[i].origen +' Destino: ' + messages[i].origen +' Valor: '+ messages[i].tarifa +' </b><br>------------------------<br>';
+                html += '<b>Cliente: '+messages[i].id_client+'</b> <br> <b>Origen: ' + messages[i].origin.title +'<br> Destino: ' + messages[i].destinations[messages[i].destinations.length-1].title +'<br> Valor: '+ messages[i].tarifa.valor +' </b><br>------------------------<br>';
                 
             }
             content.innerHTML = html;
