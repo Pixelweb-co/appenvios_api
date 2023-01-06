@@ -494,7 +494,7 @@ $("[name=email]").keyup(function(){
 
 $.ajax({
     type: "POST",
-    url: "http://192.168.0.3/auth/checkemail",
+    url: "http://5.189.156.130/auth/checkemail",
     dataType: "json",
     data: {email:$(this).val()},
     success: function (data) {
@@ -525,7 +525,7 @@ $("[name=cedula]").keyup(function(){
 
 $.ajax({
     type: "POST",
-    url: "http://192.168.0.3/auth/checkcedula",
+    url: "http://5.189.156.130/auth/checkcedula",
     dataType: "json",
     data: {cedula:$(this).val()},
     success: function (data) {
@@ -580,7 +580,7 @@ $("[name=re_password]").keyup(function(){
 
 $.ajax({
     type: "POST",
-    url: "http://192.168.0.3/auth/signupc",
+    url: "http://5.189.156.130/auth/signupc",
     dataType: "json",
     data: $('#registro-form').serialize(),
     success: function (data) {

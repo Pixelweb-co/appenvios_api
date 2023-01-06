@@ -508,7 +508,7 @@ width: 100%
 
 						$.ajax({
 						    type: "POST",
-						    url: "http://192.168.0.3/auth/checkemail",
+						    url: "http://5.189.156.130/auth/checkemail",
 						    dataType: "json",
 						    data: {email:$(this).val()},
 						    success: function (data) {
@@ -545,7 +545,7 @@ width: 100%
 
         							$.ajax({
 						    type: "POST",
-						    url: "http://192.168.0.3/activate_user",
+						    url: "http://5.189.156.130/activate_user",
 						    dataType: "json",
 						    data: {user:id_user,code:$("#codeact").val()},
 						    success: function (data) {
@@ -604,7 +604,7 @@ width: 100%
 
         					$.ajax({
 						    type: "POST",
-						    url: "http://192.168.0.3/auth/login",
+						    url: "http://5.189.156.130/auth/login",
 						    dataType: "json",
 						    data: $('#login-form').serialize(),
 						    success: function (data) {
