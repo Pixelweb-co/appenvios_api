@@ -862,8 +862,22 @@ app.post("/api/aceptar_solicitud_driver", function (req, res) {
 
   Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
     if (sol) {
+        Offer.create(req.body.offer,function(err,newOffert){
 
-       console.log("se puede asignar solicitud")
+          Solicitud.findOneAndUpdate(
+            { _id: req.body.offer.solicitud },
+            { status: "Abierta", contratista: req.body.offer.contratista },
+            { upsert: true },
+            function (err, solicitudAbierta) {
+
+              console.log("solicitud aceptada por driver ",solicitudAbierta)
+              return res.status(200).send({ result: 'SUCCESS', solicitud: solicitudAbierta,offer:newOffert});
+             
+            }
+          );  
+
+
+        })
 
     } else {
       console.log("ya esta tomada")
