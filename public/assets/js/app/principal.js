@@ -1,6 +1,6 @@
 //conectar socket 
 
-  var socket = io('http://5.189.156.130', {query: {tipo:'cliente', cliente:localStorage.getItem('user_id')}});
+  var socket = io('http://5.189.156.130:2042', {query: {tipo:'cliente', cliente:localStorage.getItem('user_id')}});
 
      socket.connect();
 
@@ -170,7 +170,7 @@ app.controller('solController', ['$scope', '$http', function ($scope, $http) {
 
     //data usuario
        $scope.obtener_usuario = function () {
-        $http.post('http://5.189.156.130/api/obtener_usuario', {user:localStorage.getItem('user_id')})
+        $http.post('http://5.189.156.130:2042/api/obtener_usuario', {user:localStorage.getItem('user_id')})
             .then(function success(e) {
 
               console.log(e)
@@ -188,7 +188,7 @@ $scope.obtener_usuario();
     
     //data ofertas
        $scope.obtener_ofertas = function (sol_id) {
-        $http.post('http://5.189.156.130/api/obtener_ofertas', {solicitud:sol_id})
+        $http.post('http://5.189.156.130:2042/api/obtener_ofertas', {solicitud:sol_id})
             .then(function success(e) {
 
               
@@ -203,7 +203,7 @@ $scope.obtener_usuario();
 
 
     $scope.obtener_ofertas_user = function (user_id) {
-        $http.post('http://5.189.156.130/api/obtener_ofertas_user', {user:user_id})
+        $http.post('http://5.189.156.130:2042/api/obtener_ofertas_user', {user:user_id})
             .then(function success(e) {
 
               
@@ -221,7 +221,7 @@ $scope.obtener_usuario();
 
     //data chat
        $scope.listchat = function (sol_id) {
-        $http.post('http://5.189.156.130/api/mensajes', {solicitud:sol_id})
+        $http.post('http://5.189.156.130:2042/api/mensajes', {solicitud:sol_id})
             .then(function success(e) {
 
                 console.log("datos chat: "+sol_id);
@@ -243,7 +243,7 @@ $scope.obtener_usuario();
 
 
 $scope.listsolicitudes = function () {
-        $http.post('http://5.189.156.130/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'Abierta'})
+        $http.post('http://5.189.156.130:2042/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'Abierta'})
             .then(function success(e) {
 
 
@@ -259,7 +259,7 @@ $scope.listsolicitudes = function () {
 
     //activas
     $scope.listsolicitudes_activas = function () {
-        $http.post('http://5.189.156.130/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'En curso'})
+        $http.post('http://5.189.156.130:2042/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'En curso'})
             .then(function success(e) {
 
 
@@ -276,7 +276,7 @@ $scope.listsolicitudes = function () {
     //completadas
 
     $scope.listsolicitudes_completadas = function () {
-         $http.post('http://5.189.156.130/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'Cerrada'})
+         $http.post('http://5.189.156.130:2042/api/solicitudes_user', {user:localStorage.getItem('user_id'),estado:'Cerrada'})
             .then(function success(e) {
 
 
@@ -293,7 +293,7 @@ $scope.listsolicitudes = function () {
 
       //obtener contratista
     $scope.contratistaSel = function (ids) {
-        $http.post('http://5.189.156.130/api/obtener_contratista', {id:ids})
+        $http.post('http://5.189.156.130:2042/api/obtener_contratista', {id:ids})
             .then(function success(e) {
 
 
@@ -355,7 +355,7 @@ $scope.listsolicitudes = function () {
 
               //aceptar oferta
     $scope.acetarOferta = function (ids) {
-        $http.post('http://5.189.156.130/api/aceptar_oferta', {id:ids})
+        $http.post('http://5.189.156.130:2042/api/aceptar_oferta', {id:ids})
             .then(function success(e) {
 
                     console.log("oferta aceptada",e);
@@ -368,7 +368,7 @@ $scope.listsolicitudes = function () {
 
               //aceptar oferta
     $scope.ObtenerOferta = function (ids) {
-        $http.post('http://5.189.156.130/api/obtener_oferta', {id:ids})
+        $http.post('http://5.189.156.130:2042/api/obtener_oferta', {id:ids})
             .then(function success(e) {
 
          $scope.oferta_servicio = e.data; 

@@ -180,7 +180,7 @@ var cedula_valid;
 
 $.ajax({
     type: "POST",
-    url: "http://5.189.156.130/auth/checkcedula",
+    url: "http://5.189.156.130:2042/auth/checkcedula",
     dataType: "json",
     data: {cedula:$(this).val()},
     success: function (data) {
