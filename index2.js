@@ -855,6 +855,25 @@ app.post("/api/obtener_saldo", function (req, res) {
   });
 });
 
+//aceptar solicitud driver por valor
+app.post("/api/aceptar_solicitud", function (req, res) {
+  console.log("Aceptar solicitud")
+  console.log("Aceptar solicitud driver ",req.body)
+
+  Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
+    if (sol) {
+
+       console.log("se puede asignar solicitud")
+
+    } else {
+      console.log("ya esta tomada")
+      return res.status(200).send({ result: 'FAILURE' });
+    }
+  });
+
+})
+
+
 
 // Aceptar solicitud
 app.post("/api/aceptar_solicitud", function (req, res) {
@@ -874,8 +893,17 @@ app.post("/api/aceptar_solicitud", function (req, res) {
               function (err, ofertaAceptada) {
               console.log("sol abrierta ",solicitudAbierta)
 
-            return res.status(200).send({ result: 'SUCCESS', solicitud: solicitudAbierta,offer:ofertaAceptada});
-              })  
+              Ofertas.findOneAndUpdate(
+                { solicitud: req.body.offer.solicitud },
+                { estado: "CLOSE"},
+                { upsert: true },
+                function (err, ofertaCerradas) {
+                console.log("sol abrierta ",solicitudAbierta)
+  
+              return res.status(200).send({ result: 'SUCCESS', solicitud: solicitudAbierta,offer:ofertaAceptada});
+                })
+            
+            })  
           }
         );
        
