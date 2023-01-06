@@ -325,7 +325,7 @@ width: 100%
                
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-envelope"></i>
-                    <input placeholder="Tu email registrado" class="form-control form-text" id="userf" name="usuario" value="" size="60" maxlength="100" autocomplete="off" type="email" required>
+                    <input placeholder="Tu email registrado" class="form-control form-text" id="userf" name="email" value="" size="60" maxlength="100" autocomplete="off" type="email" required>
                 </div>
                  <span class="validate emailerror" style="display: none">Este email no existe. <br><br></span>
             </div>
@@ -339,7 +339,7 @@ width: 100%
                
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-lock"></i>
-                    <input placeholder="Tu contraseña" class="form-control form-text" id="passf" name="clave" value="" size="60" maxlength="100" autocomplete="off" type="password" required>
+                    <input placeholder="Tu contraseña" class="form-control form-text" id="passf" name="password" value="" size="60" maxlength="100" autocomplete="off" type="password" required>
                 </div>
                 <span class="validate passerror" style="display: none">La contraseña es incorrecta!. <br><br></span>
             </div>
@@ -503,7 +503,7 @@ width: 100%
         			}
 
 
-        			$("[name=usuario]").change(function(){
+        			$("[name=email]").change(function(){
 
 
 						$.ajax({
@@ -516,12 +516,12 @@ width: 100%
 
 						        if(!data.isEmailUnique){
 						            mail_valid = false;
-						            $("[name=usuario]").css('border-color','lime');
+						            $("[name=email]").css('border-color','lime');
 						            $(".usuarioerror").hide();
 						        }else{
 						            
 						            mail_valid = true;
-						            $("[name=usuario]").css('border-color','#2953cc');
+						            $("[name=email]").css('border-color','#2953cc');
 						            $(".emailerror").show();
 
 						        }
