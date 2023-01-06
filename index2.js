@@ -336,12 +336,13 @@ app.post("/auth/signup", function (req, res) {
       act_code: "",
       avatar: "noImg.png",
     },
-    function (err, obj) {},
-    function (err, solicitud) {
+    
+    function (err, userNew) {
       if (err) {
         res.send(err);
       }
       console.log("user new");
+      res.json(userNew);
     }
   );
 });
@@ -351,7 +352,7 @@ app.post("/auth/signupc", function (req, res) {
 
   usuariom.create(
     { email: req.body.email, password: req.body.password },
-    function (err, obj) {},
+    
     function (err, solicitud) {
       if (err) {
         res.send(err);
