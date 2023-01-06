@@ -856,8 +856,8 @@ app.post("/api/obtener_saldo", function (req, res) {
 });
 
 //aceptar solicitud driver por valor
-app.post("/api/aceptar_solicitud", function (req, res) {
-  console.log("Aceptar solicitud")
+app.post("/api/aceptar_solicitud_driver", function (req, res) {
+  
   console.log("Aceptar solicitud driver ",req.body)
 
   Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
