@@ -342,7 +342,7 @@ app.post("/auth/signup", function (req, res) {
         res.send(err);
       }
       console.log("user new");
-      res.json(userNew);
+      res.json({status:"SUCCESS",data:userNew,message:"Gracias por registrate, esperamos disfrutes nuestra aplicaciòn"});
     }
   );
 });
