@@ -862,7 +862,7 @@ app.post("/api/aceptar_solicitud_driver", function (req, res) {
 
   Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
     if (sol) {
-        Offer.create(req.body.offer,function(err,newOffert){
+      Ofertas.create(req.body.offer,function(err,newOffert){
 
           Solicitud.findOneAndUpdate(
             { _id: req.body.offer.solicitud },
