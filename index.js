@@ -24,7 +24,7 @@ http.listen(PORT, () => {
 
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "<http://192.168.0.2:2042>"
+        origin: "<http://192.168.0.4:2042>"
     }
 });
 

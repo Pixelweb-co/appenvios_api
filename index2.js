@@ -542,9 +542,16 @@ app.post("/api/ofertas", function (req, res) {
       }
   
      
-    console.log("oferta Actualizada ",ofertaActualizada)
-
-
+    
+    Ofertas.find(
+      { solicitud: req.body.solicitud, estado: "PENDING" },
+      function (err, oferta_s) {
+        console.log(oferta_s);
+        //socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:ofertaActualizada})
+        io.to("solicitud-"+req.body.solicitud).emit("seToffers", {offers:oferta_s,lastOferUpdate:ofertaActualizada});
+        return true
+      }
+    );  
 
      return res.status(200).send({ result: 'SUCCESS', offer:ofertaActualizada});
     
@@ -1113,7 +1120,7 @@ io.on("connection", function (socket) {
       let len = usernames.length;
       len--;
     } else {
-      console.log("user indefinido");
+      console.log("user indefinido ",socket.handshake.query);
     }
   } else {
     console.log("se actualiza socket");
@@ -1126,10 +1133,14 @@ io.on("connection", function (socket) {
 
   console.log("userlist: ", usernames);
 
-  io.sockets.emit("userList", usernames);
+  socket.broadcast.emit("userList", usernames);
 
   socket.username = socket.handshake.query.cliente;
   socket.tipo = socket.handshake.query.tipo;
+
+  console.log("Tipo usuario: ",socket.handshake.query.tipo)
+
+  console.log("Rooms ",io.sockets.adapter.rooms)
 
   if (socket.handshake.query.tipo == "cliente") {
     console.log("A ingresado un contratante");
@@ -1228,6 +1239,104 @@ io.on("connection", function (socket) {
   /////////////
 
   //console.log("salas ",io.sockets.adapter.rooms);
+
+
+  
+
+  socket.on("solicitudPendiente",data=>{
+    console.log("user ",data)
+
+
+    if(data.tipo == "cliente"){
+    Solicitud.findOne(
+      { id_client: data._id, status: "PENDING" },
+      function (err, sol) {
+        if (!sol) {
+         console.log("No tiene pendientes de cliente")
+          
+         
+         socket.emit("seTsolicitud", {type:"client", offers:[],sol:{
+          id:null,
+          id_client:null,
+          client_data:null,
+          id_driver:null,
+          origin:{title:"initial",coords:null},
+          destinations:[],
+          status:"NEW",
+          tarifa:{valor:0,formaPago:"efectivo"},
+          type:null,
+          comments:{notes:"",serviceTypeOptions:null}
+        }})
+        return false
+        }
+        console.log("tiene solicitud cliente ",sol)
+        solicitudes_rooms.push({
+          sala: "solicitud_" + sol._id,
+          contratante: data._id,
+          contratista: null,
+        });
+
+
+        Ofertas.find(
+          { solicitud: sol._id, estado: "PENDING" },
+          function (err, oferta_s) {
+            console.log(oferta_s);
+            socket.emit("seTsolicitud",{type:"client",sol:sol,offers:oferta_s})
+            return true
+          }
+        );
+        
+
+
+      })
+
+    }
+
+    if(data.tipo == "contratista"){
+    
+      Solicitud.findOne(
+        { id_driver: data._id, status: "Abierta" },
+        function (err, sol) {
+          if (!sol) {
+           console.log("No tiene pendientes de contratista")
+          //si no tiene como contratista ver si tiene como cliente  
+           Solicitud.findOne(
+            { id_client: data._id, status: "PENDING" },
+            function (err, sol) {
+              if (!sol) {
+               console.log("No tiene pendientes de cliente")
+               socket.emit("seTsolicitud", {
+                id:null,
+                id_client:null,
+                client_data:null,
+                id_driver:null,
+                origin:{title:"initial",coords:null},
+                destinations:[],
+                status:"NEW",
+                tarifa:{valor:0,formaPago:"efectivo"},
+                type:null,
+                comments:{notes:"",serviceTypeOptions:null}
+              })
+               
+               return false
+              }
+              console.log("tiene solicitud cliente ",sol)
+              socket.emit("seTsolicitud", sol)
+              
+      
+            })
+      
+    
+          }
+          console.log("tiene solicitud contratista ",sol)
+          socket.emit("seTsolicitud", sol)
+  
+        })
+    
+    }    
+
+
+  })
 
   socket.on("userJoin",data=>{
 
