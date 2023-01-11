@@ -118,8 +118,8 @@ var Pin_pago = mongoose.model("Pin_pago", {
 var Solicitud = mongoose.model("Solicitudes", {
   id: Number,
   id_client: String,
-  client_data:Object,
-  id_driver: Number,
+  client_data: Object,
+  id_driver: String,
   status: String,
   comments: Object,
   destinations: Array,
@@ -265,12 +265,10 @@ app.post("/api/photo", function (req, res) {
           { avatar: req.body.user + ".png" },
           { upsert: true },
           function (err, results) {
-            return res
-              .status(200)
-              .send({
-                success: true,
-                image: "uploads/" + req.body.user + ".png",
-              });
+            return res.status(200).send({
+              success: true,
+              image: "uploads/" + req.body.user + ".png",
+            });
           }
         );
       }
@@ -336,13 +334,18 @@ app.post("/auth/signup", function (req, res) {
       act_code: "",
       avatar: "noImg.png",
     },
-    
+
     function (err, userNew) {
       if (err) {
         res.send(err);
       }
       console.log("user new");
-      res.json({status:"SUCCESS",data:userNew,message:"Gracias por registrate, esperamos disfrutes nuestra aplicaciòn"});
+      res.json({
+        status: "SUCCESS",
+        data: userNew,
+        message:
+          "Gracias por registrate, esperamos disfrutes nuestra aplicaciòn",
+      });
     }
   );
 });
@@ -352,7 +355,7 @@ app.post("/auth/signupc", function (req, res) {
 
   usuariom.create(
     { email: req.body.email, password: req.body.password },
-    
+
     function (err, solicitud) {
       if (err) {
         res.send(err);
@@ -378,14 +381,12 @@ app.post("/auth/login", function (req, res) {
         // Comprobar si hay errores
         // Si el usuario existe o no
         // Y si la contraseÃ±a es correcta
-        return res
-          .status(200)
-          .send({
-            status: "SUCCESS",
-            message: "Logued Ok",
-            token: service.createToken(obj),
-            user: obj,
-          });
+        return res.status(200).send({
+          status: "SUCCESS",
+          message: "Logued Ok",
+          token: service.createToken(obj),
+          user: obj,
+        });
       } else {
         console.log("error de usuario y/o clave");
         // Comprobar si hay errores
@@ -513,7 +514,7 @@ app.post("/api/obtener_nombre", function (req, res) {
 });
 
 app.post("/api/obtener_ofertas", function (req, res) {
- // console.log("obteniendo ofertas");
+  // console.log("obteniendo ofertas");
 
   Ofertas.find(
     { solicitud: req.body.solicitud, estado: "PENDING" },
@@ -524,46 +525,58 @@ app.post("/api/obtener_ofertas", function (req, res) {
   );
 });
 
-
 app.post("/api/ofertas", function (req, res) {
-  console.clear()
-  console.log("nueva oferta",req.body);
-
+  console.clear();
+  console.log("nueva oferta", req.body);
 
   Ofertas.findOneAndUpdate(
-    { solicitud: req.body.solicitud,contratista:req.body.contratista,estado:"PENDING" },
-    { valor: req.body.valor},
+    {
+      solicitud: req.body.solicitud,
+      contratista: req.body.contratista,
+      estado: "PENDING",
+    },
+    { valor: req.body.valor },
     { upsert: true },
     function (err, ofertaActualizada) {
-
       if (err) {
-        console.log("Error pffert ",err)
+        console.log("Error pffert ", err);
         return res.send(err);
       }
-  
-     
-    
-    Ofertas.find(
-      { solicitud: req.body.solicitud, estado: "PENDING" },
-      function (err, oferta_s) {
-        console.log(oferta_s);
-        //socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:ofertaActualizada})
-        io.to("solicitud-"+req.body.solicitud).emit("seToffers", {offers:oferta_s,lastOferUpdate:ofertaActualizada});
-        return true
-      }
-    );  
 
-     return res.status(200).send({ result: 'SUCCESS', offer:ofertaActualizada});
-    
-    })  
+      Ofertas.find(
+        { solicitud: req.body.solicitud, estado: "PENDING" },
+        function (err, oferta_s) {
+          console.log(oferta_s);
+          //socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:ofertaActualizada})
+          console.log("join cntratista oferta ",req.body.contratista)
 
+          
+          var pickedf = _.filter(usernames, {
+          userName: req.body.contratista,
+          });
+console.log(usernames)
+  console.log("pkc ", pickedf);
 
+          io.to("contratistas").emit("joinRequisition", {
+            requisitionId:req.body.solicitud,
+            contratista:req.body.contratista
+          })
+            
+          console.log("enviando notificacion de oferta");
+          io.to("solicitud_" + req.body.solicitud).emit("seToffers", {
+            offers: oferta_s,
+            lastOferUpdate: ofertaActualizada,
+          });
+          return true;
+        }
+      );
 
-
-
+      return res
+        .status(200)
+        .send({ result: "SUCCESS", offer: ofertaActualizada });
+    }
+  );
 });
-
-
 
 //cargar chat solicitud
 
@@ -593,14 +606,13 @@ app.post("/api/obtener_ofertas_user", function (req, res) {
 });
 
 app.post("/api/solicitudes", function (req, res) {
-  console.log(req.body);
 
   Solicitud.create(req.body.requisition, function (err, solicitud) {
     if (err) {
       res.send(err);
     }
 
-//    console.log("rest ", solicitud);
+    //    console.log("rest ", solicitud);
 
     Solicitud.find({ status: "PENDING" }, function (err, solicitudes) {
       if (err) {
@@ -608,10 +620,9 @@ app.post("/api/solicitudes", function (req, res) {
       }
       //   socket.broadcast.to('lobby').emit('solicitudes_abiertas', { data: solicitudes });
 
-      // socket.broadcast.to('lobby').emit('notification', notifications_open);
+      io.to("contratistas").emit('solicitudes_abiertas', solicitudes);
 
-      io.sockets.emit("solicitudes_abiertas", { data: solicitudes });
-      
+      //io.sockets.emit("solicitudes_abiertas", { data: solicitudes });
     });
 
     //notifications_open.push({
@@ -670,20 +681,16 @@ app.post("/api/solicitudes", function (req, res) {
   });
 });
 
-
-app.get("/api/solicitudes",(req,res)=>{
-
-    console.log("obteniendo solicitudes")
-    Solicitud.find({ status: "PENDING" }, function (err, solicitudes) {
-        if (err) {
-          res.send(err);
-        }
-        console.log("solicitudes cargadas ",solicitudes)
-        res.json(solicitudes);
-      });
-     
-
-})
+app.get("/api/solicitudes", (req, res) => {
+  console.log("obteniendo solicitudes");
+  Solicitud.find({ status: "PENDING" }, function (err, solicitudes) {
+    if (err) {
+      res.send(err);
+    }
+    console.log("solicitudes cargadas ", solicitudes);
+    res.json(solicitudes);
+  });
+});
 
 //crear solicitud
 app.post("/api/solicitudes2", function (req, res) {
@@ -787,7 +794,7 @@ app.post("/api/solicitudes2", function (req, res) {
         }
         socket.broadcast
           .to("lobby")
-          .emit("solicitudes_abiertas", { data: solicitudes });
+          .emit("solicitudes_abiertas", solicitudes);
 
         console.log("notification");
 
@@ -803,7 +810,10 @@ app.post("/api/solicitudes2", function (req, res) {
 
 app.post("/api/solicitudes_user", function (req, res) {
   Solicitud.find(
-    { $or: [{ status: "PENDING" }, { status: "Abierta" }] , id_client: req.body.id_client },
+    {
+      $or: [{ status: "PENDING" }, { status: "Abierta" }],
+      id_client: req.body.id_client,
+    },
     function (err, solicitudes) {
       if (err) {
         res.send(err);
@@ -813,7 +823,7 @@ app.post("/api/solicitudes_user", function (req, res) {
 
       res.json(solicitudes);
 
-      return false
+      return false;
     }
   );
 });
@@ -865,105 +875,126 @@ app.post("/api/obtener_saldo", function (req, res) {
 
 //aceptar solicitud driver por valor
 app.post("/api/aceptar_solicitud_driver", function (req, res) {
-  
-  console.log("Aceptar solicitud driver ",req.body)
+  console.log("Aceptar solicitud driver ", req.body);
 
-  Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
-    if (sol) {
-      Ofertas.create(req.body.offer,function(err,newOffert){
-
+  Solicitud.findOne(
+    { _id: req.body.offer.solicitud, status: "PENDING" },
+    function (err, sol) {
+      if (sol) {
+        Ofertas.create(req.body.offer, function (err, newOffert) {
           Solicitud.findOneAndUpdate(
             { _id: req.body.offer.solicitud },
             { status: "Abierta", contratista: req.body.offer.contratista },
             { upsert: true },
             function (err, solicitudAbierta) {
-
-              console.log("solicitud aceptada por driver ",solicitudAbierta)
-              return res.status(200).send({ result: 'SUCCESS', solicitud: solicitudAbierta,offer:newOffert});
-             
+              console.log("solicitud aceptada por driver ", solicitudAbierta);
+              return res
+                .status(200)
+                .send({
+                  result: "SUCCESS",
+                  solicitud: solicitudAbierta,
+                  offer: newOffert,
+                });
             }
-          );  
-
-
-        })
-
-    } else {
-      console.log("ya esta tomada")
-      return res.status(200).send({ result: 'FAILURE' });
+          );
+        });
+      } else {
+        console.log("ya esta tomada");
+        return res.status(200).send({ result: "FAILURE" });
+      }
     }
-  });
-
-})
-
-
-
-// Aceptar solicitud
-app.post("/api/aceptar_solicitud", function (req, res) {
-  console.log("Aceptar solicitud")
-  Solicitud.findOne({ _id: req.body.offer.solicitud,status:"PENDING" }, function (err, sol) {
-    if (sol) {
-
-        Solicitud.findOneAndUpdate(
-          { _id: req.body.offer.solicitud },
-          { status: "Abierta", contratista: req.body.offer.contratista },
-          { upsert: true },
-          function (err, solicitudAbierta) {
-            Ofertas.findOneAndUpdate(
-              { _id: req.body.offer._id },
-              { estado: "ACCEPT"},
-              { upsert: true },
-              function (err, ofertaAceptada) {
-              console.log("sol abrierta ",solicitudAbierta)
-
-              Ofertas.findOneAndUpdate(
-                { solicitud: req.body.offer.solicitud },
-                { estado: "CLOSE"},
-                { upsert: true },
-                function (err, ofertaCerradas) {
-                console.log("sol abrierta ",solicitudAbierta)
-  
-              return res.status(200).send({ result: 'SUCCESS', solicitud: solicitudAbierta,offer:ofertaAceptada});
-                })
-            
-            })  
-          }
-        );
-       
-
-    } else {
-      console.log("ya esta tomada")
-      return res.status(200).send({ result: 'FAILURE' });
-    }
-  });
+  );
 });
 
+// Aceptar solicitud cliente
+app.post("/api/aceptar_solicitud", function (req, res) {
+  console.log("Aceptar solicitud ");
+  Solicitud.findOne(
+    { _id: req.body.offer.solicitud, status: "PENDING" },
+    function (err, sol) {
+      if (sol) {
+        console.log("offer in accpt ", req.body.offer);
+        Solicitud.findOneAndUpdate(
+          { _id: req.body.offer.solicitud },
+          { status: "Abierta", id_driver: req.body.offer.contratista },
+          { upsert: true },
+          function (errS, solicitudAbierta) {
+            if (solicitudAbierta) {
+              console.log("sol abrierta ", {...solicitudAbierta,status:"Active"});
+
+              Ofertas.findOneAndUpdate(
+                { _id: req.body.offer._id },
+                { estado: "ACCEPT" },
+                { upsert: true },
+                function (err, ofertaAceptada) {
+                  Ofertas.findOneAndUpdate(
+                    { solicitud: req.body.offer.solicitud },
+                    { estado: "CLOSE" },
+                    { upsert: true },
+                    function (err, ofertaCerradas) {
+                      console.log("notificacion de cambioi de estado ");
+
+                      //console.log("Rooms ",io.sockets.adapter.rooms)
+                      //notificar al contratista
 
 
-// Aceptar solicitud
+
+
+                      io.to("solicitud_" + solicitudAbierta._id).emit(
+                        "offerAccept",
+                        { solicitud: {...solicitudAbierta,status:"Active"}, offer: ofertaAceptada }
+                      );
+
+                      return res
+                        .status(200)
+                        .send({
+                          result: "SUCCESS",
+                          solicitud: {...solicitudAbierta,status:"Active"},
+                          offer: ofertaAceptada,
+                        });
+                    }
+                  );
+                }
+              );
+            } else {
+              console.log("No se creo la solicitud ", errS);
+              return res
+                .status(200)
+                .send({ result: "ERROR", msg: "no se pudo crear" });
+            }
+          }
+        );
+      } else {
+        console.log("ya esta tomada");
+        return res.status(200).send({ result: "FAILURE" });
+      }
+    }
+  );
+});
+
+// Terminal solicitud
 app.post("/api/terminar_solicitud", function (req, res) {
-  console.log("Terminar solicitud ")
-  Solicitud.findOne({ _id: req.body.requisition._id,status:"Abierta" }, function (err, sol) {
-    if (sol) {
-
+  console.log("Terminar solicitud rest ",req.body);
+  Solicitud.findOne(
+    { _id: req.body.requisition._id, status: "Abierta" },
+    function (err, sol) {
+      if (sol) {
         Solicitud.findOneAndUpdate(
           { _id: sol._id },
           { status: "Cerrada" },
           { upsert: true },
           function (err, solicitudCerrada) {
-            return res.status(200).send({ result: 'SUCCESS'});
-            
+            io.to("solicitud_"+req.body.requisition._id).emit("terminateService",{finishBy:"user"})
+            return res.status(200).send({ result: "SUCCESS" });
           }
         );
-       
-
-    } else {
-      console.log("ya esta tomada")
-      return res.status(200).send({ result: 'FAILURE' });
+      } else {
+        console.log("ya esta tomada");
+        return res.status(200).send({ result: "FAILURE" });
+      }
     }
-  });
+  );
 });
-
-
 
 app.post("/auth/login", function (req, res) {
   //console.log(req.body)
@@ -1120,7 +1151,7 @@ io.on("connection", function (socket) {
       let len = usernames.length;
       len--;
     } else {
-      console.log("user indefinido ",socket.handshake.query);
+      console.log("user indefinido ", socket.handshake.query);
     }
   } else {
     console.log("se actualiza socket");
@@ -1138,9 +1169,9 @@ io.on("connection", function (socket) {
   socket.username = socket.handshake.query.cliente;
   socket.tipo = socket.handshake.query.tipo;
 
-  console.log("Tipo usuario: ",socket.handshake.query.tipo)
+  console.log("Tipo usuario: ", socket.handshake.query.tipo);
 
-  console.log("Rooms ",io.sockets.adapter.rooms)
+  console.log("Rooms ", io.sockets.adapter.rooms);
 
   if (socket.handshake.query.tipo == "cliente") {
     console.log("A ingresado un contratante");
@@ -1151,13 +1182,13 @@ io.on("connection", function (socket) {
     console.log("A ingresado un contratista");
     socket.join("contratistas");
 
-    Solicitud.find({ estado: "PENDING" }, function (err, solicitudes) {
+    Solicitud.find({ status: "PENDING" }, function (err, solicitudes) {
       if (err) {
         res.send(err);
       }
-      socket.emit("solicitudes_abiertas", { data: solicitudes });
+      socket.emit("solicitudes_abiertas", solicitudes );
 
-      console.log("enviadas solicitudes abiertas para el contratista.");
+      console.log("enviadas solicitudes abiertas para el contratista.",solicitudes);
     });
   }
 
@@ -1165,7 +1196,7 @@ io.on("connection", function (socket) {
 
   if (solicitudes_rooms.length == 0) {
     Solicitud.find(
-      { estado: "En curso" },
+      { estado: "Abierta" },
       function (err, solicitudes_en_curso) {
         solicitudes_en_curso.forEach(function (item) {
           solicitudes_rooms.push({
@@ -1240,110 +1271,177 @@ io.on("connection", function (socket) {
 
   //console.log("salas ",io.sockets.adapter.rooms);
 
+  socket.on("solicitudPendiente", (data) => {
+    //console.log("user ", data);
 
-  
+    if (data.tipo == "cliente") {
+      Solicitud.findOne(
+        {
+          id_client: data._id,
+          $or: [{ status: "PENDING" }, { status: "Abierta" }],
+        },
+        function (err, sol) {
+          if (!sol) {
+            console.log("No tiene pendientes de cliente");
 
-  socket.on("solicitudPendiente",data=>{
-    console.log("user ",data)
-
-
-    if(data.tipo == "cliente"){
-    Solicitud.findOne(
-      { id_client: data._id, status: "PENDING" },
-      function (err, sol) {
-        if (!sol) {
-         console.log("No tiene pendientes de cliente")
-          
-         
-         socket.emit("seTsolicitud", {type:"client", offers:[],sol:{
-          id:null,
-          id_client:null,
-          client_data:null,
-          id_driver:null,
-          origin:{title:"initial",coords:null},
-          destinations:[],
-          status:"NEW",
-          tarifa:{valor:0,formaPago:"efectivo"},
-          type:null,
-          comments:{notes:"",serviceTypeOptions:null}
-        }})
-        return false
-        }
-        console.log("tiene solicitud cliente ",sol)
-        solicitudes_rooms.push({
-          sala: "solicitud_" + sol._id,
-          contratante: data._id,
-          contratista: null,
-        });
-
-
-        Ofertas.find(
-          { solicitud: sol._id, estado: "PENDING" },
-          function (err, oferta_s) {
-            console.log(oferta_s);
-            socket.emit("seTsolicitud",{type:"client",sol:sol,offers:oferta_s})
-            return true
+            socket.emit("seTsolicitud", {
+              type: "client",
+              offers: [],
+              sol: {
+                id: null,
+                id_client: null,
+                client_data: null,
+                id_driver: null,
+                origin: { title: "initial", coords: null },
+                destinations: [],
+                status: "NEW",
+                tarifa: { valor: 0, formaPago: "efectivo" },
+                type: null,
+                comments: { notes: "", serviceTypeOptions: null },
+              },
+            });
+            return false;
           }
-        );
-        
+          console.log("tiene solicitud cliente ", sol);
+          socket.join("solicitud_"+sol._id)
+          console.log("salas ",solicitudes_rooms)
+          /* solicitudes_rooms.push({
+            sala: "solicitud_" + sol._id,
+            contratante: data._id,
+            contratista: null,
+          }); */
 
-
-      })
-
+          Ofertas.find(
+            { solicitud: sol._id, estado: "PENDING" },
+            function (err, oferta_s) {
+              console.log(oferta_s);
+              socket.emit("seTsolicitud", {
+                type: "client",
+                sol: sol,
+                offers: oferta_s,
+              });
+              return true;
+            }
+          );
+        }
+      );
     }
 
-    if(data.tipo == "contratista"){
-    
+    if (data.tipo == "contratista") {
       Solicitud.findOne(
         { id_driver: data._id, status: "Abierta" },
         function (err, sol) {
           if (!sol) {
-           console.log("No tiene pendientes de contratista")
-          //si no tiene como contratista ver si tiene como cliente  
-           Solicitud.findOne(
-            { id_client: data._id, status: "PENDING" },
-            function (err, sol) {
-              if (!sol) {
-               console.log("No tiene pendientes de cliente")
-               socket.emit("seTsolicitud", {
-                id:null,
-                id_client:null,
-                client_data:null,
-                id_driver:null,
-                origin:{title:"initial",coords:null},
-                destinations:[],
-                status:"NEW",
-                tarifa:{valor:0,formaPago:"efectivo"},
-                type:null,
-                comments:{notes:"",serviceTypeOptions:null}
-              })
-               
-               return false
+            console.log("No tiene pendientes de contratista");
+            //si no tiene como contratista ver si tiene como cliente
+
+            Solicitud.findOne(
+              {
+                id_client: data._id,
+                $or: [{ status: "PENDING" }, { status: "Abierta" }],
+              },
+              function (err, sol2) {
+                console.log("buscamdo cliente  ", sol2);
+                if (!sol2) {
+                  console.log("No tiene pendientes de cliente");
+                  return false;
+                }
+
+                console.log("tiene solicitud cliente ", sol2);
+
+                socket.emit("seTsolicitud", sol2);
+
+                return false;
               }
-              console.log("tiene solicitud cliente ",sol)
-              socket.emit("seTsolicitud", sol)
-              
-      
-            })
-      
-    
+            );
+
+            return false;
           }
-          console.log("tiene solicitud contratista ",sol)
-          socket.emit("seTsolicitud", sol)
-  
-        })
-    
-    }    
+
+          if (sol) {
+            console.log("tiene solicitud contratista ");
+
+            socket.join("solicitud_"+sol._id)
 
 
-  })
+            var picked_sala = _.filter(solicitudes_rooms, {
+              sala: "solicitud_" + sol._id,
+            });
 
-  socket.on("userJoin",data=>{
+            console.log("sala encontrada para el contratista ",picked_sala)
 
-    console.log("join user ___________________________- ",data)
+            // if (picked_sala.length == 0) {
+            //   solicitudes_rooms.push({
+            //     sala: "solicitud_" + sol._id,
+            //     contratante: data.solicitud.contratante,
+            //     contratista: data.solicitud.contratista,
+            //   });
+            // }
 
-  })
+            console.log("salas ", io.sockets.adapter.rooms);
 
+
+
+            socket.emit("seTsolicitud", { sol: sol, offers: [] });
+          }
+        }
+      );
+    }
+  });
+
+
+socket.on("ping2",function(payload){
+  console.log("ping ",payload)
+})
+
+socket.on("setOffer",function(payload){
+
+
+  console.clear();
+  console.log("nueva oferta", payload);
+
+  Ofertas.findOneAndUpdate(
+    {
+      solicitud: payload.solicitud,
+      contratista: payload.contratista,
+      estado: "PENDING",
+    },
+    { valor: payload.valor },
+    { upsert: true },
+    function (err, ofertaActualizada) {
+      if (err) {
+        console.log("Error pffert ", err);
+        return res.send(err);
+      }
+
+      Ofertas.find(
+        { solicitud: payload.solicitud, estado: "PENDING" },
+        function (err, oferta_s) {
+          console.log(oferta_s);
+          //socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:ofertaActualizada})
+          console.log("join cntratista oferta")
+          
+          console.log("enviando notificacion de oferta");
+          io.to("solicitud_" + payload.solicitud).emit("seToffers", {
+            offers: oferta_s,
+            lastOferUpdate: ofertaActualizada,
+          });
+          return true;
+        }
+      );
+        //end
+        socket.join("solicitud_" + payload.solicitud)
+
+    }
+  );
+
+})
+
+  socket.on("joinRequisition", (payload) => {
+    console.log("join user ___________________________- ", payload);
+    socket.join("solicitud_" + payload.requisitionId)
+    console.log("rooms ", io.sockets.adapter.rooms);
+  });
 
   socket.on("ver_solicitud", (data) => {
     console.log("ingreso a solicitud contratista ", data);
@@ -1421,13 +1519,11 @@ io.on("connection", function (socket) {
                     socket.leave("solicitud_" + data.id);
 
                     socket.broadcast.to("contratantes").emit("updateapp");
-                    socket.broadcast
-                      .to("contratantes")
-                      .emit("cancelada", {
-                        solicitud: sol,
-                        contratista: contratista_c,
-                        texto_cancelacion: data.detalle.texto_cancelacion,
-                      });
+                    socket.broadcast.to("contratantes").emit("cancelada", {
+                      solicitud: sol,
+                      contratista: contratista_c,
+                      texto_cancelacion: data.detalle.texto_cancelacion,
+                    });
                   }
                 );
               });
@@ -1440,19 +1536,19 @@ io.on("connection", function (socket) {
     Solicitud.find({ estado: "PENDING" }, function (err, docs) {
       socket.broadcast
         .to("contratistas")
-        .emit("solicitudes_abiertas", { data: docs });
-      socket.emit("solicitudes_abiertas", { data: docs });
+        .emit("solicitudes_abiertas", docs );
+      socket.emit("solicitudes_abiertas", docs);
     });
   });
 
-  socket.on("solicitudes_get", () => {
+  socket.on("solicitudes_get", (user) => {
     Solicitud.find({ status: "PENDING" }, function (err, solicitudes) {
       if (err) {
         res.send(err);
       }
 
       console.log("SL ", solicitudes);
-      socket.emit("solicitudes_abiertas", { data: solicitudes });
+      socket.emit("solicitudes_abiertas", solicitudes);
     });
   });
 
@@ -1514,13 +1610,11 @@ io.on("connection", function (socket) {
 
                     //envio notificaciones al loby para blquear la solicitud a los demas
 
-                    socket.broadcast
-                      .to("contratistas")
-                      .emit("tomada", {
-                        user: socket.handshake.query.cliente,
-                        sol: data.solicitud._id,
-                        estado: data.solicitud.estado,
-                      });
+                    socket.broadcast.to("contratistas").emit("tomada", {
+                      user: socket.handshake.query.cliente,
+                      sol: data.solicitud._id,
+                      estado: data.solicitud.estado,
+                    });
                     socket.broadcast
                       .to("contratantes")
                       .emit("modal_servicio_tomado", {
@@ -1532,7 +1626,7 @@ io.on("connection", function (socket) {
                       //notiicacion a todos los contratistas
                       socket.broadcast
                         .to("contratistas")
-                        .emit("solicitudes_abiertas", { data: docs });
+                        .emit("solicitudes_abiertas", docs );
                     });
 
                     socket.emit("solicitud_asignacion", {
@@ -1819,7 +1913,7 @@ io.on("connection", function (socket) {
           }
           socket.broadcast
             .to("contratistas")
-            .emit("solicitudes_abiertas", { data: solicitudes });
+            .emit("solicitudes_abiertas", solicitudes);
 
           console.log("notification");
           //console.log(notifications_open);
