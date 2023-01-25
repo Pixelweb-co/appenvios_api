@@ -61,7 +61,7 @@ var express = require("express");
 var app = express();
 
 // ConexiÃƒÂ³n con la base de datos
-mongoose.connect("mongodb://egbmaster2007:16287318Ed@localhost:27017/envios");
+mongoose.connect("mongodb://localhost:27017/envios");
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
