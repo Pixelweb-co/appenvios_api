@@ -55,13 +55,18 @@ var Greenlock = require("greenlock-express");
 //var Greenlock = require("../");
 
 var socketio = require("socket.io");
+
+
+require('dotenv').config()
+
 //var server;
 var io;
 var express = require("express");
 var app = express();
 
+const urldb = process.env.MONGO_CONNECTION_STRING;
 // ConexiÃƒÂ³n con la base de datos
-mongoose.connect("mongodb://localhost:27017/envios");
+mongoose.connect(urldb);
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
