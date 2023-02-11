@@ -1340,7 +1340,7 @@ io.on("connection", function (socket) {
   //console.log("salas ",io.sockets.adapter.rooms);
 
   socket.on("solicitudPendiente", (data) => {
-    //console.log("user ", data);
+    console.log("solicitud pendiente para ", data.tipo);
 
     if (data.tipo == "cliente") {
       Solicitud.findOne(
