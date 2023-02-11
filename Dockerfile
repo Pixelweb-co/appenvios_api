@@ -15,7 +15,11 @@ COPY . .
 RUN npm install
 
 # Exponer el puerto de la aplicación
+<<<<<<< HEAD
 EXPOSE 3000
+=======
+EXPOSE 2042
+>>>>>>> 30c915c (data1)
 
 # Establecer la variable de entorno para la conexión a la base de datos
 ENV MONGO_URI mongodb://agilenvio:16287318@51.222.12.243:27017/envios
