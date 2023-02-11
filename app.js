@@ -1228,12 +1228,15 @@ io.on("connection", function (socket) {
           console.log(err)
           return false
         }
-        console.log("se encontro oferta ",oferta_s);
+        console.log("se encontro oferta ",oferta_s.length);
+        
+       if(oferta_s.length > 0){        
         socket.join("solicitud_".oferta_s.solicitud)
         socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:oferta_s[0]})
-
         console.log("enviando notificacion de oferta");
-        
+       }
+
+
       }
     );
 
