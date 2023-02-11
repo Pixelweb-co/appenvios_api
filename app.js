@@ -882,6 +882,7 @@ app.post("/api/obtener_saldo", function (req, res) {
 
 //aceptar solicitud driver por valor
 app.post("/api/aceptar_solicitud_driver", function (req, res) {
+  console.clear()
   console.log("Aceptar solicitud driver ", req.body);
 
   Solicitud.findOne(
@@ -945,7 +946,7 @@ app.post("/api/aceptar_solicitud", function (req, res) {
                       //console.log("Rooms ",io.sockets.adapter.rooms)
                       //notificar al contratista
 
-                      io.to("solicitud_" + solicitudAbierta._id).emit(
+                      io.to("contratistas").emit(
                         "offerAccept",
                         {
                           solicitud: { ...solicitudAbierta, status: "Active" },
@@ -1396,11 +1397,12 @@ io.on("connection", function (socket) {
     }
 
     if (data.tipo == "contratista") {
+      console.log("buscando solicitud")
       Solicitud.findOne(
         { id_driver: data._id, status: "Abierta" },
         function (err, sol) {
           if (!sol) {
-            //console.log("No tiene pendientes de contratista");
+            console.log("No tiene pendientes de contratista");
             //si no tiene como contratista ver si tiene como cliente
 
             Solicitud.findOne(
