@@ -1113,7 +1113,7 @@ var greenlock = Greenlock.create({
 // http-01 challenge happens over http/1.1, not http2
 //var redirectHttps = require("redirect-https")();
 var acmeChallengeHandler = greenlock.middleware(function (req, res) {
-  res.writeHead(301, { Location: "https://apienvios.pixelweb.com.co" });
+  res.writeHead(301, { Location: "http://api.agilenvio.co" });
   res.end();
 
   //res.redirect('https://' + req.headers.host + req.url);
@@ -1228,9 +1228,10 @@ io.on("connection", function (socket) {
           console.log(err)
           return false
         }
-        console.log(oferta_s);
+        console.log("se encontro oferta ",oferta_s);
+        socket.join("solicitud_".oferta_s.solicitud)
         socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:oferta_s[0]})
-        
+
         console.log("enviando notificacion de oferta");
         
       }
