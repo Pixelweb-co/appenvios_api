@@ -17,19 +17,18 @@ RUN mkdir -p /home/ubuntu/apienvios
 # Se estable el directorio de trabajo
 WORKDIR /home/ubuntu/apienvios
 
-# Instala los paquetes existentes en el package.json
-COPY package.json .
-RUN npm install --quiet
-
-# Instalación de Nodemon en forma Global
-# Al realizarse cambios reiniciar el servidor
-RUN npm install nodemon -g --quiet
-
-# Copia la Aplicación
+# Copiar los archivos del proyecto a la imagen
+COPY package*.json ./
 COPY . .
 
-# Expone la aplicación en el puerto 8000
-EXPOSE 8000
+# Instalar las dependencias
+RUN npm install
 
-# Inicia la aplicación al iniciar al contenedor
-CMD nodemon -L --watch . app.js
+# Exponer el puerto de la aplicación
+EXPOSE 4000
+
+# Establecer la variable de entorno para la conexión a la base de datos
+ENV MONGO_URI mongodb://agilenvio:16287318@51.222.12.243:27017/envios
+
+# Iniciar la aplicación
+CMD ["npm", "start"]
