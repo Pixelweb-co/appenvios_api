@@ -1260,7 +1260,7 @@ io.on("connection", function (socket) {
   //solicitudes en curso actuales reponer conexiones
 
   if (solicitudes_rooms.length == 0) {
-    Solicitud.find({ estado: "Abierta" }, function (err, solicitudes_en_curso) {
+    Solicitud.find({ status: "Abierta" }, function (err, solicitudes_en_curso) {
       if(err){
         console.log(err)
         return false
