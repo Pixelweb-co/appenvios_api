@@ -568,6 +568,7 @@ app.post("/api/ofertas", function (req, res) {
           });
 
           console.log("enviando notificacion de oferta");
+          console.log("room ",io.rooms["solicitud_" + req.body.solicitud])
           io.to("solicitud_" + req.body.solicitud).emit("seToffers", {
             offers: oferta_s,
             lastOferUpdate: ofertaActualizada,
