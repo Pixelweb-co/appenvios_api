@@ -1223,6 +1223,10 @@ io.on("connection", function (socket) {
     Ofertas.find(
       { cliente: socket.handshake.query.cliente, estado: "PENDING" },
       function (err, oferta_s) {
+        if(err){
+          console.log(err)
+          return false
+        }
         console.log(oferta_s);
         socket.emit("seToffers",{offers:oferta_s,lastOferUpdate:oferta_s[0]})
         
@@ -1256,6 +1260,13 @@ io.on("connection", function (socket) {
 
   if (solicitudes_rooms.length == 0) {
     Solicitud.find({ estado: "Abierta" }, function (err, solicitudes_en_curso) {
+      if(err){
+        console.log(err)
+        return false
+      }
+
+      console.log("soles ",solicitudes_en_curso)
+
       solicitudes_en_curso.forEach(function (item) {
         solicitudes_rooms.push({
           sala: "solicitud_" + item._id,
