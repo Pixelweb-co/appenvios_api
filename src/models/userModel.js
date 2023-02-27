@@ -22,7 +22,7 @@ var Usuariosh = mongoose.Schema({
   });
 
 
-var usuario = mongoose.model("usuarios", Usuariosh);
+var usuario = mongoose.model("usuarioms", Usuariosh);
   
 
-module.exports = usuariom;
+module.exports = usuario;

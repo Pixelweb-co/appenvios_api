@@ -1,4 +1,4 @@
-const User = require('./userModel');
+const User = require('../models/userModel');
 
 async function createUser(req, res) {
   const { name, email } = req.body;

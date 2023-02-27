@@ -13,6 +13,8 @@ var Solicitud = mongoose.model("Solicitudes", {
   type: String,
   origin: Object,
   fecha: Date,
+  ratedClient:String,
+  ratedDriver:String
 });
 
 module.exports = Solicitud;

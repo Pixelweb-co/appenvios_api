@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const http = require("http");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var cors = require("cors");
@@ -55,11 +54,13 @@ require("dotenv").config();
 
 
 
-const userRoutes = require("./routes/userRoutes");
-const solicitudRoutes = requite("./routes/solicitudRoutes");
-const ofertasRoutes = require("./routes/ofertasRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const solicitudRoutes = require("./src/routes/solicitudRoutes");
+const ofertasRoutes = require("./src/routes/offerRoutes");
+const favoritosRoutes = require("./src/routes/favoritosRoutes");
+const ratingRoutes = require("./src/routes/ratingRoutes");
 
-const socketService = require("./services/socketService");
+const socketService = require("./src/services/socketService");
 
 const app = express();
 const port = 2042;
@@ -93,9 +94,12 @@ app.use(express.static(__dirname + "/public"));
 
 
 // Configurar rutas
-app.use("/api/users", userRoutes);
+app.use("/api/usuarios", userRoutes);
 app.use("/api/solicitud", solicitudRoutes);
 app.use("/api/ofertas", ofertasRoutes);
+app.use("/api/favoritos", favoritosRoutes);
+app.use("/api/rating", ratingRoutes);
+
 
 //inicializar socket
 socketService.init(server);

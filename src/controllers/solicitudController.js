@@ -1,4 +1,4 @@
-const Solicitud = require('../models/solicitud');
+const Solicitud = require('../models/solicitudModel');
 
 const getSolicitudes = async (req, res) => {
   try {
@@ -56,10 +56,27 @@ const deleteSolicitud = async (req, res) => {
   }
 };
 
+
+const lastlocation = async (req, res)=> {
+  console.log("obteniendo ultima ubicacion ",req.body.user);
+
+  Solicitud.findOne({ id_client: req.body.user, status: "Cerrada" })
+    .sort({ _id: -1 })
+    .exec(function (err, lastLocation) {
+      if(lastLocation === null){
+        console.log("no tiene ultima ubicacion")
+        return res.status(200).send("");
+      }
+      console.log("last location get ", lastLocation); 
+      return res.status(200).send(lastLocation.origin);
+    });
+}
+
 module.exports = {
   getSolicitudes,
   getSolicitudById,
   createSolicitud,
   updateSolicitud,
   deleteSolicitud,
+  lastlocation
 };
